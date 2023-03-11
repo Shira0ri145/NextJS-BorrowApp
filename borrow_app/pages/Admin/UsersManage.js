@@ -3,7 +3,7 @@ import AdminNavbar from "@/components/AdminNavbar";
 import AdminSidebar from "@/components/AdminSidebar";
 import Head from "next/head";
 
-export default function UserManage() {
+export default function UsersManage() {
   return (
     <div class="sb-nav-fixed">
       <Head>
@@ -41,10 +41,7 @@ export default function UserManage() {
                       <h4>
                         {" "}
                         Registered User
-                        <a
-                          href="register-add.php"
-                          class="btn btn-primary float-end"
-                        >
+                        <a href="" class="btn btn-primary float-end">
                           Add
                         </a>
                       </h4>
@@ -76,11 +73,11 @@ export default function UserManage() {
                                 <td>ad</td>
                                 <td>asd</td>
                                 <td>
-                                    <a href="register-edit.php?id=<?= $row['id']; ?>" class="btn btn-success">Edit</a>
+                                    <a href="" class="btn btn-success">Edit</a>
                                 </td>
                                 <td>
-                                <form action="user-add-update.php" method="post">
-                                <button type="sumbit" name="user_delete" value="<?= $row['id']; ?>" class="btn btn-danger">Delete</button>
+                                <form method="post">
+                                <button type="sumbit" name="user_delete"  class="btn btn-danger">Delete</button>
                                 </form>
                                 </td>
                             </tr>
@@ -96,11 +93,11 @@ export default function UserManage() {
                                 <td>ad</td>
                                 <td>asd</td>
                                 <td>
-                                    <a href="register-edit.php?id=<?= $row['id']; ?>" class="btn btn-success">Edit</a>
+                                    <a href="" class="btn btn-success">Edit</a>
                                 </td>
                                 <td>
                                 <form action="user-add-update.php" method="post">
-                                <button type="sumbit" name="user_delete" value="<?= $row['id']; ?>" class="btn btn-danger">Delete</button>
+                                <button type="sumbit" name="user_delete" class="btn btn-danger">Delete</button>
                                 </form>
                                 </td>
                             </tr>
@@ -116,11 +113,11 @@ export default function UserManage() {
                                 <td>ad</td>
                                 <td>asd</td>
                                 <td>
-                                    <a href="register-edit.php?id=<?= $row['id']; ?>" class="btn btn-success">Edit</a>
+                                    <a href="" class="btn btn-success">Edit</a>
                                 </td>
                                 <td>
-                                <form action="user-add-update.php" method="post">
-                                <button type="sumbit" name="user_delete" value="<?= $row['id']; ?>" class="btn btn-danger">Delete</button>
+                                <form  method="post">
+                                <button type="sumbit" name="user_delete" class="btn btn-danger">Delete</button>
                                 </form>
                                 </td>
                             </tr>
