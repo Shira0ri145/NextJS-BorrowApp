@@ -1,30 +1,24 @@
-import "@/styles/bootstrap.module.css";
-
+import AdminFooter from "@/components/AdminFooter";
 import AdminNavbar from "@/components/AdminNavbar";
 import AdminSidebar from "@/components/AdminSidebar";
-import AdminFooter from "@/components/AdminFooter";
-
 import Head from "next/head";
 
-export default function Dashboardpage() {
-  return (
-    <>
+export default function Dashboard() {
+  return(
+    // fixed nav
+    <div class="sb-nav-fixed"> 
       <Head>
         <title>Admin Dashboard</title>
-      </Head>
       
-      {/* Top Navbar */}
-      <div class="sb-nav-fixed">
-        <AdminNavbar />
-      </div>
-
-      {/* Sidebar */}
-      <div id="layoutSidenav">
+      </Head>
+      {/* Top navbar */}
+      <AdminNavbar/>
+      
+      <div id="layoutSidenav"> {/* Sidenav */}
         <AdminSidebar/>
 
-        {/* Forcontent in site */}
         <div id="layoutSidenav_content">
-          <main>
+            <main>
 
             {/* Dashboard Content */}
             <div class="container-fluid px-4">
@@ -154,9 +148,14 @@ export default function Dashboardpage() {
             </div>
 
           </main>
-          <AdminFooter/>
+            {/* Footer */}
+            <AdminFooter/>
         </div>
+
       </div>
-    </>
-  );
-}
+      
+    </div>
+
+  )
+  
+};
