@@ -4,9 +4,6 @@ import styles from "@/styles/MyBorrowed.module.css"
 import Image from 'next/image';
 import { useState } from "react";
 
-
-
-
 export default function MyBorrowed() {
     const [search, setSearch] = useState('');
 

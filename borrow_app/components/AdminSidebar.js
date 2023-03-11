@@ -1,54 +1,51 @@
+// Import the FontAwesomeIcon component
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// import the icons you need
+import {
+  faUser,
+  faInfo,
+  faTools
+  
+} from "@fortawesome/free-solid-svg-icons";
+import Script from "next/script";
+import Link from "next/link";
+
 export default function AdminSidebar() {
   return (
+    <>
     <div id="layoutSidenav_nav">
       <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
           <div class="nav">
-            <div class="sb-sidenav-menu-heading">Core</div>
-            <a class="nav-link" href="/Admin/Dashboard">
-              <div class="sb-nav-link-icon">
-                <i class="fas fa-tachometer-alt"></i>
-              </div>
-              Dashboard
-            </a>
-            <a class="nav-link" href="/Admin/UsersManage">
-              <div class="sb-nav-link-icon">
-                <i class="fas fa-users"></i>
-              </div>
+            <div class="sb-sidenav-menu-heading">Management</div>
+            <Link class="nav-link" href="/Admin/UsersManage">
+              <div class="sb-nav-link-icon"> 
+              <FontAwesomeIcon 
+              icon={faUser}
+              width ="15px"
+              />
+              </div> 
               Users Management
-            </a>
-            <div class="sb-sidenav-menu-heading">Items</div>
-            <a
-              class="nav-link collapsed"
-              href="/Admin/BorrowedInfo"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseLayouts"
-              aria-expanded="false"
-              aria-controls="collapseLayouts">
+            </Link>
+            <Link class="nav-link" href="/Admin/BorrowedInfo">
               <div class="sb-nav-link-icon">
-                <i class="fas fa-map"></i>
+              <FontAwesomeIcon 
+              icon={faInfo}
+              width ="18px"
+              />
               </div>
-              Borrowing information
-              <div class="sb-sidenav-collapse-arrow">
-                <i class="fas fa-angle-down"></i>
-              </div>
-            </a>
-            <a
-              class="nav-link collapsed"
-              href="/Admin/ItemsManage"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseLayouts"
-              aria-expanded="false"
-              aria-controls="collapseLayouts"
-            >
+              Borrowing Information
+            </Link>
+            <Link class="nav-link" href="/Admin/ItemsManage">
               <div class="sb-nav-link-icon">
-                <i class="fas fa-map"></i>
+              <FontAwesomeIcon 
+              icon={faTools}
+              width ="20px"
+              />
               </div>
-              Manage Items
-              <div class="sb-sidenav-collapse-arrow">
-                <i class="fas fa-angle-down"></i>
-              </div>
-            </a>
+              Item Management
+            </Link>
           </div>
         </div>
         <div class="sb-sidenav-footer">
@@ -57,5 +54,6 @@ export default function AdminSidebar() {
         </div>
       </nav>
     </div>
+    </>
   );
 }

@@ -2,6 +2,7 @@ import AdminFooter from "@/components/AdminFooter";
 import AdminNavbar from "@/components/AdminNavbar";
 import AdminSidebar from "@/components/AdminSidebar";
 import Head from "next/head";
+import Link from "next/link";
 
 export default function UsersManage() {
   return (
@@ -41,9 +42,9 @@ export default function UsersManage() {
                       <h4>
                         {" "}
                         Registered User
-                        <a href="" class="btn btn-primary float-end">
+                        <Link href="/Admin/AddUser" class="btn btn-primary float-end">
                           Add
-                        </a>
+                        </Link>
                       </h4>
                     </div>
                     {/* card header */}
@@ -58,8 +59,10 @@ export default function UsersManage() {
                         <thead>
                           <tr>
                             <th>ID</th>
-                            <th>USERNAME</th>
-                            <th>EMAIL</th>
+                            <th>NAME</th>
+                            <th>TELEPHONE</th>
+                            <th>FACULTY</th>
+                            <th>DEPARTMENT</th>
                             <th>ROLE</th>
                             <th>Edit</th>
                             <th>Delete</th>
@@ -72,8 +75,10 @@ export default function UsersManage() {
                                 <td>ad</td>
                                 <td>ad</td>
                                 <td>asd</td>
+                                <td>asd</td>
+                                <td>asd</td>
                                 <td>
-                                    <a href="" class="btn btn-success">Edit</a>
+                                    <Link href="/Admin/EditUser" class="btn btn-success">Edit</Link>
                                 </td>
                                 <td>
                                 <form method="post">
@@ -84,48 +89,24 @@ export default function UsersManage() {
                             
                             {/* table header */}
                             {/* Put Data here */}
-                        </tbody>
-
-                        <tbody>
                             <tr>
                                 <td>ad</td>
                                 <td>ad</td>
                                 <td>ad</td>
                                 <td>asd</td>
-                                <td>
-                                    <a href="" class="btn btn-success">Edit</a>
-                                </td>
-                                <td>
-                                <form action="user-add-update.php" method="post">
-                                <button type="sumbit" name="user_delete" class="btn btn-danger">Delete</button>
-                                </form>
-                                </td>
-                            </tr>
-                            
-                            {/* table header */}
-                            {/* Put Data here */}
-                        </tbody>
-
-                        <tbody>
-                            <tr>
-                                <td>ad</td>
-                                <td>ad</td>
-                                <td>ad</td>
+                                <td>asd</td>
                                 <td>asd</td>
                                 <td>
-                                    <a href="" class="btn btn-success">Edit</a>
+                                  <Link href="/Admin/EditUser" class="btn btn-success">Edit</Link>
                                 </td>
                                 <td>
-                                <form  method="post">
-                                <button type="sumbit" name="user_delete" class="btn btn-danger">Delete</button>
+                                <form method="post">
+                                <button type="sumbit" name="user_delete"  class="btn btn-danger">Delete</button>
                                 </form>
                                 </td>
                             </tr>
-                            
-                            {/* table header */}
-                            {/* Put Data here */}
-                        </tbody>
-                        
+ 
+                        </tbody>     
                         
                       </table>
                     </div>

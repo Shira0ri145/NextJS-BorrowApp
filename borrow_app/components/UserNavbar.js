@@ -9,7 +9,7 @@ export default function UserNavbar() {
 
             </div>
             <div class="NavBTN">
-            <Link href="/Admin/Dashboard">Dashboard</Link>
+            <Link href="/Admin">Dashboard</Link>
             <Link href="/Items">Items</Link>
             <Link href="/MyBorrowed">My borrowed</Link>
             <Link href="/Contact">Contact</Link>
