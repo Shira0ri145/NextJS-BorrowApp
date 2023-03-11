@@ -1,0 +1,20 @@
+.label {
+    outline:3px solid red ;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+
+  }
+
+.mes{
+    justify-content: center;
+    width: 50%;
+    margin-left: 20px;
+}
+.image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
