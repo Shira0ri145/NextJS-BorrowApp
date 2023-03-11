@@ -2,6 +2,7 @@ import UserNavbar from "@/components/UserNavbar";
 import Head from "next/head";
 import Link from "next/link";
 import styles from "@/styles/Contact.module.css"
+import Image from "next/image";
 export default function Contact() {
     return (
         <>
@@ -20,7 +21,9 @@ export default function Contact() {
                     <br/>porta eros blandit at. Suspendisse quam orci, rhoncus eu purus a, 
                     </label>
                 </div>
-                <img src="@/IMG/contact.jpg" alt="My Image" className={styles.image} />
+                <div>
+                    <Image src="/contact.jpg" alt = "logo"  width= {100} height= {100}  className={styles.image} />
+                </div>
 
             </h1>
         

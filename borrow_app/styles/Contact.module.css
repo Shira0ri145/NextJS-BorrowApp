@@ -11,10 +11,9 @@
     margin-left: 20px;
 }
 .image {
-    width: 100%;
-    max-width: 500px;
     height: auto;
-    display: block;
+    display: inline;
     margin-bottom: 1rem;
-  }
+    float: right;
+}
 
