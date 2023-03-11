@@ -11,7 +11,7 @@ export default function AdminSidebar() {
               </div>
               Dashboard
             </a>
-            <a class="nav-link" href="/Admin/UserManage">
+            <a class="nav-link" href="/Admin/UsersManage">
               <div class="sb-nav-link-icon">
                 <i class="fas fa-users"></i>
               </div>
@@ -20,12 +20,11 @@ export default function AdminSidebar() {
             <div class="sb-sidenav-menu-heading">Items</div>
             <a
               class="nav-link collapsed"
-              href="#"
+              href="/Admin/BorrowedInfo"
               data-bs-toggle="collapse"
               data-bs-target="#collapseLayouts"
               aria-expanded="false"
-              aria-controls="collapseLayouts"
-            >
+              aria-controls="collapseLayouts">
               <div class="sb-nav-link-icon">
                 <i class="fas fa-map"></i>
               </div>
@@ -36,7 +35,7 @@ export default function AdminSidebar() {
             </a>
             <a
               class="nav-link collapsed"
-              href="#"
+              href="/Admin/ItemsManage"
               data-bs-toggle="collapse"
               data-bs-target="#collapseLayouts"
               aria-expanded="false"
