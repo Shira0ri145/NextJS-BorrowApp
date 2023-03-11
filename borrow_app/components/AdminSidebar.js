@@ -15,7 +15,7 @@ export default function AdminSidebar() {
               <div class="sb-nav-link-icon">
                 <i class="fas fa-users"></i>
               </div>
-              Registered Users
+              Users Management
             </a>
             <div class="sb-sidenav-menu-heading">Items</div>
             <a
