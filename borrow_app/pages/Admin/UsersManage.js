@@ -3,8 +3,44 @@ import AdminNavbar from "@/components/AdminNavbar";
 import AdminSidebar from "@/components/AdminSidebar";
 import Head from "next/head";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
 
 export default function UsersManage() {
+  const [Item,setItem] = useState([])
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/dashboard/user-management/')
+        setItem(response.data)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // const delete  pass
+  const handleDelelte = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:8000/api/dashboard/user-management/edit/<int:user_id>/',
+     {u_userid :Item.u_userid
+      ,u_name : Item.u_name,
+      u_tel:Item.u_tel,
+      u_faculty:Item.u_faculty,
+      u_department:Item.u_department,
+      u_privilege:Item.u_privilege
+    })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+
   return (
     <div class="sb-nav-fixed">
       <Head>
@@ -32,7 +68,6 @@ export default function UsersManage() {
                 </li>
               </ol>
               {/* sub-header */}
-
               {/* card */}
               <div class="row">
                 <div class="col-md-12">
@@ -70,42 +105,22 @@ export default function UsersManage() {
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>ad</td>
-                                <td>ad</td>
-                                <td>ad</td>
-                                <td>asd</td>
-                                <td>asd</td>
-                                <td>asd</td>
+                           { Item.map((data,index)=>(<tr key={index}>
+                                <td>Item.u_userid</td>
+                                <td>Item.u_name</td>
+                                <td>Item.u_tel</td>
+                                <td>Item.u_faculty</td>
+                                <td>Item.u_department</td>
+                                <td>Item.u_privilege</td>
                                 <td>
                                     <Link href="/Admin/EditUser" class="btn btn-success">Edit</Link>
                                 </td>
                                 <td>
                                 <form method="post">
-                                <button type="sumbit" name="user_delete"  class="btn btn-danger">Delete</button>
+                                <button onClick={handleDelelte} type="sumbit" name="user_delete"  class="btn btn-danger">Delete</button>
                                 </form>
                                 </td>
-                            </tr>
-                            
-                            {/* table header */}
-                            {/* Put Data here */}
-                            <tr>
-                                <td>ad</td>
-                                <td>ad</td>
-                                <td>ad</td>
-                                <td>asd</td>
-                                <td>asd</td>
-                                <td>asd</td>
-                                <td>
-                                  <Link href="/Admin/EditUser" class="btn btn-success">Edit</Link>
-                                </td>
-                                <td>
-                                <form method="post">
-                                <button type="sumbit" name="user_delete"  class="btn btn-danger">Delete</button>
-                                </form>
-                                </td>
-                            </tr>
- 
+                            </tr>)) }
                         </tbody>     
                         
                       </table>

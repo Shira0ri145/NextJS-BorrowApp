@@ -2,6 +2,7 @@ import AdminFooter from "@/components/AdminFooter";
 import AdminNavbar from "@/components/AdminNavbar";
 import AdminSidebar from "@/components/AdminSidebar";
 import Head from "next/head";
+import { useState } from "react";
 
 export default function AddItems(params) {
   return (
