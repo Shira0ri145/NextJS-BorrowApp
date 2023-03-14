@@ -17,9 +17,10 @@ export default function Home() {
     setPassword(e.target.value);
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('/api/login', { ICITID, password })
+    axios.post('http://localhost:8000/api/login', { ICITID, password })
     .then((response) => {
       console.log(response.data);
     })
