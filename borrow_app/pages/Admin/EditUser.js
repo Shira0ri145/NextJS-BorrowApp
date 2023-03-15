@@ -36,14 +36,13 @@ export default function EditUser(params) {
   }
   const handleOnSubmit = (e) =>{
     e.preventDefault();
-    axios.post('http://localhost:8000/api/dashboard/user-management/edit/',{ u_name,u_email,u_password,u_tel,u_faculty,u_department,u_privilege
+    axios.post('http://localhost:8000/api/dashboard/user-management/edit/',{ u_name:u_name
+    ,u_email:u_email,u_password:u_password,u_tel:u_tel,u_faculty:u_faculty,u_department:u_department
+    ,u_privilege:u_privilege
     }).then((Response)=>{
       alert(Response)
     })
   }
-  
-
-
 
     return(
         <div class="sb-nav-fixed">

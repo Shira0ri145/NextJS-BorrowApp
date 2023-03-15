@@ -2,8 +2,11 @@ import AdminFooter from "@/components/AdminFooter";
 import AdminNavbar from "@/components/AdminNavbar";
 import AdminSidebar from "@/components/AdminSidebar";
 import axios from "axios";
+import { parseUrl } from "next/dist/shared/lib/router/utils/parse-url";
 import Head from "next/head";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function AddUser(params) {
   const [u_name,setu_name] = useState("")
@@ -13,6 +16,7 @@ export default function AddUser(params) {
   const [u_faculty,setu_faculty] = useState("")
   const [u_department,setu_department] = useState("")
   const [u_privilege,setu_privilege] = useState("")
+  const Router = useRouter()
   
   const handleu_nameChange = (e) =>{
     setu_name(e.target.value)
@@ -37,16 +41,26 @@ export default function AddUser(params) {
   }
   const handleOnSubmit = (e) =>{
     e.preventDefault();
-    axios.post('http://localhost:8000/api/dashboard/user-management/add/',{ u_name,u_email,u_password,u_tel,u_faculty,u_department,u_privilege
-    }).then((Response)=>{
+    // axios.post('http://localhost:8000/api/dashboard/user-management/add/',{ u_name:u_name,u_email:u_email,
+    // u_password:u_password,u_tel:u_tel,u_faculty:u_faculty,
+    // u_department:u_department,u_privilege:u_privilege
+    axios.post('http://localhost:8000/api/dashboard/user-management/add/',
+    { u_name,u_email,u_password,u_tel:parseInt(u_tel),u_faculty:parseInt(u_faculty),u_department:parseInt(u_department),u_privilege:parseInt(u_privilege)})
+    .then((Response)=>{
       alert(Response)
     })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
+  const handleCancel = (e)  =>{
+    Router.push('/Admin')
   }
   
 
 
   return (
-    <div class="sb-nav-fixed">
+    <div className="sb-nav-fixed">
       <Head>
         <title>Add User</title>
       </Head>
@@ -59,73 +73,74 @@ export default function AddUser(params) {
         <div id="layoutSidenav_content">
           <main>
             {/* Dashboard Content */}
-            <div class="container-fluid px-4">
-              <h1 class="mt-4">Users Management</h1>
-              <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">User Management / Add</li>
+            <div className="container-fluid px-4">
+              <h1 className="mt-4">Users Management</h1>
+              <ol className="breadcrumb mb-4">
+                <li className="breadcrumb-item active">User Management / Add</li>
+                {JSON.stringify([u_name, u_email, u_password, u_tel, u_department, u_faculty, u_privilege])}
               </ol>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card">
-                    <div class="card-header">
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="card">
+                    <div className="card-header">
                       <h4> Add User/Admin</h4>
                     </div>
-                    <div class="card-body">
+                    <div className="card-body">
                       <form onSubmit={handleOnSubmit} method="post">
-                        <div class="row">
-                          <div class="col-md-6 mb-3">
-                            <label for="">Name</label>
+                        <div className="row">
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Name</label>
                             <input
                               type="text"
                               name="username"
-                              class="form-control"
+                              className="form-control"
                               value={u_name}
                               onChange = {handleu_nameChange}
                             />
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Email Address</label>
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Email Address</label>
                             <input
                               type="text"
                               name="email"
-                              class="form-control"
+                              className="form-control"
                               value={u_email}
                               onChange = {handleu_emailChange}
                             />
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Password</label>
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Password</label>
                             <input
                               type="text"
                               name="password"
-                              class="form-control"
+                              className="form-control"
                               value={u_password}
                               onChange = {handleu_passwordChange}
                             />
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Telephone</label>
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Telephone</label>
                             <input
                               type="text"
                               name="telephone"
-                              class="form-control"
+                              className="form-control"
                               value={u_tel}
                               onChange = {handleu_telChange}
                             />
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Faculty</label>
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Faculty</label>
                             <select value={u_faculty}
                               onChange = {handleu_facultyChange}
-                              name="faculty" require class="form-control">
+                              name="faculty" require={toString()} className="form-control">
                               <option value="">--Select Faculty--</option>
                               <option value="1">ECE</option>
                             </select>
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Department</label>
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Department</label>
                             <select name="department" value={u_department}
-                              onChange = {handleu_departmenChange} require class="form-control">
+                              onChange = {handleu_departmenChange} require={toString()} className="form-control">
                               <option value="">--Select Department--</option>
                               <option value="3">EE</option>
                               <option value="2">MEE</option>
@@ -133,32 +148,30 @@ export default function AddUser(params) {
                               <option value="0">Cpr.E</option>
                             </select>
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Role as</label>
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Role as</label>
                             <select value={u_privilege}
                               onChange = {handleu_privilegeChange} 
-                              name="role_as" require class="form-control">
+                              name="role_as" require={toString()} className="form-control">
                               <option value="">--Select Role--</option>
                               <option value="1">Admin</option>
                               <option value="0">User</option>
                             </select>
                           </div>
                           
-                          <div class="col-md-12 mb-3">
+                          <div className="col-md-12 mb-3">
                             <button
                               type="submit"
                               name="add_user"
-                              class="btn btn-primary"
+                              className="btn btn-primary"
                             >
                               Add User/Admin
                             </button>
-                            <button
-                              type="submit"
-                              name="cancel"
-                              class="btn btn-danger"
+                            <Link href={"/Admin"}
+                              className="btn btn-danger"
                             >
                               Cancel
-                            </button>
+                            </Link>
                           </div>
                         </div>
                       </form>

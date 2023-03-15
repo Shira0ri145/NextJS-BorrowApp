@@ -15,12 +15,12 @@ export default function AdminSidebar() {
   return (
     <>
     <div id="layoutSidenav_nav">
-      <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-        <div class="sb-sidenav-menu">
-          <div class="nav">
-            <div class="sb-sidenav-menu-heading">Management</div>
-            <Link class="nav-link" href="/Admin/UsersManage">
-              <div class="sb-nav-link-icon"> 
+      <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div className="sb-sidenav-menu">
+          <div className="nav">
+            <div className="sb-sidenav-menu-heading">Management</div>
+            <Link className="nav-link" href="/Admin/UsersManage">
+              <div className="sb-nav-link-icon"> 
               <FontAwesomeIcon 
               icon={faUser}
               width ="15px"
@@ -28,8 +28,8 @@ export default function AdminSidebar() {
               </div> 
               Users Management
             </Link>
-            <Link class="nav-link" href="/Admin/BorrowedInfo">
-              <div class="sb-nav-link-icon">
+            <Link className="nav-link" href="/Admin/BorrowedInfo">
+              <div className="sb-nav-link-icon">
               <FontAwesomeIcon 
               icon={faInfo}
               width ="18px"
@@ -37,8 +37,8 @@ export default function AdminSidebar() {
               </div>
               Borrowing Information
             </Link>
-            <Link class="nav-link" href="/Admin/ItemsManage">
-              <div class="sb-nav-link-icon">
+            <Link className="nav-link" href="/Admin/ItemsManage">
+              <div className="sb-nav-link-icon">
               <FontAwesomeIcon 
               icon={faTools}
               width ="20px"
@@ -48,8 +48,8 @@ export default function AdminSidebar() {
             </Link>
           </div>
         </div>
-        <div class="sb-sidenav-footer">
-          <div class="small">Logged in as:</div>
+        <div className="sb-sidenav-footer">
+          <div className="small">Logged in as:</div>
           Admin
         </div>
       </nav>

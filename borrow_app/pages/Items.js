@@ -21,7 +21,6 @@ export default function Items() {
     };
     fetchData();
   }, []);
-  
 
   const handleSearch = async (event) => {
     event.preventDefault();

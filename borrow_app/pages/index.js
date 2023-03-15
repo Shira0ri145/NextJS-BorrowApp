@@ -4,51 +4,54 @@ import styles from "@/styles/Home.module.css"
 import react from 'react'
 import { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function Home() {
-  const [ICITID, setICITID] = useState('');
-  const [password, setPassword] = useState('');
-
+  const [u_email, setu_email] = useState('');
+  const [u_password, setu_password] = useState('');
+  const Router = useRouter()
   const handleICITChange = (e) => {
-    setICITID(e.target.value);
+    setu_email(e.target.value);
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const handleu_passwordChange = (e) => {
+    setu_password(e.target.value);
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/api/login', { ICITID, password })
+    axios.post('http://localhost:8000/api/login/', 
+    { u_email:u_email, u_password:u_password })
     .then((response) => {
-      console.log(response.data);
-    })
+      Router.push("/Admin")})
     .catch((error) => {
       console.error(error);
     });
 };
 
+
   return (
     <>
     <div className={styles.container}>
       <h1>Login</h1>
+      {JSON.stringify(u_email)}
+      {JSON.stringify(u_password)}
       <form onSubmit={handleSubmit} className={styles.form}>
-        <label htmlFor="ICIT" className={styles.label}>Email:</label>
+        <label htmlFor="u_email" className={styles.label}>Email:</label>
         <input
           type="text"
-          id="ICITID"
-          value={ICITID}
+          id="u_email"
+          value={u_email}
           onChange={handleICITChange}
           className={styles.input}
           required
         />
-        <label htmlFor="password" className={styles.label}>Password:</label>
+        <label htmlFor="u_password" className={styles.label}>password:</label>
         <input
           type="password"
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
+          id="u_password"
+          value={u_password}
+          onChange={handleu_passwordChange}
           className={styles.input}
           required
         />

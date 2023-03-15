@@ -16,33 +16,33 @@ export default function AdminNavbar() {
         </Head>
         
         
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             {/* Navbar Brand */}
-            <Link href="/Admin/UsersManage" class="navbar-brand ps-3">
+            <Link href="/Admin/UsersManage" className="navbar-brand ps-3">
             <div>BORROW APP</div>
             </Link>
             {/* Sidebar Toggle */}
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
+            <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
               <FontAwesomeIcon icon={faBars} />
             </button>
             {/* Navbar Search */}
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             </form>
             {/* Navbar */}
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Options
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                       <li>
-                        <Link class="dropdown-item" href="/Contact">
+                        <Link className="dropdown-item" href="/Contact">
                         <div >User view</div>
                         </Link>
                       </li>
-                      <li><hr class="dropdown-divider" /></li>
+                      <li><hr className="dropdown-divider" /></li>
                       <li>
-                        <Link class="dropdown-item" href="/">
+                        <Link className="dropdown-item" href="/">
                         <div >Logout</div>
                         </Link>
                         </li>
