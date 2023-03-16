@@ -97,7 +97,7 @@ export default function BorrowedInfo() {
                         <thead>
                           <tr>
                             <th>ITEM NAME</th>
-                            <th>USER</th>
+                            <th>EMAIL</th>
                             <th>BORROW TIME</th>
                             <th>RETURN TIME</th>
                             <th>LOCATION</th>
@@ -109,13 +109,12 @@ export default function BorrowedInfo() {
 
                         <tbody>
                         { BorrowedItem.map((data,index)=>(<tr key={index}>
-                            
-                                <td>ad</td>
-                                <td>ad</td>
-                                <td>ad</td>
-                                <td>asd</td>
-                                <td>asd</td>
-                                <td>asd</td>
+                                <td>{data.b_item}</td>
+                                <td>{data.b_user}</td>
+                                <td>{data.b_borrow_time}</td>
+                                <td>{data.b_return_time}</td>
+                                <td>{data.b_location}</td>
+                                <td>{data.b_note}</td>
                                 <td>
                                 <Link href="/Admin/EditBorrowed">
                                 <div className="btn btn-success">Edit</div>

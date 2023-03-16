@@ -89,9 +89,9 @@ export default function EditBorrowed(params) {
                             />
                           </div>
                           <div className="col-md-6 mb-3">
-                            <label >User</label>
+                            <label >Email</label>
                             <input
-                              type="text"
+                              type="email"
                               name="idtype"
                               className="form-control"
                               value = {b_user}

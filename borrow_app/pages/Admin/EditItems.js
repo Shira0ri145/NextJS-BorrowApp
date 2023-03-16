@@ -3,10 +3,65 @@ import AdminNavbar from "@/components/AdminNavbar";
 import AdminSidebar from "@/components/AdminSidebar";
 import Head from "next/head";
 import Image from 'next/image';
+import { useState } from "react";
+import axios from "axios";
 
 export default function EditItems(params) {
+  const [item_id,setitem_id] = useState("")
+  const [item_id_type,setitem_id_type] = useState("")
+  const [item_name,setitem_name] = useState("")
+  const [item_category,setitem_category] = useState("")
+  const [item_faculty,setitem_faculty] = useState("")
+  const [item_department,setitem_department] = useState("")
+  const [item_status,setitem_status] = useState("")
+  const [item_borrow_status,setitem_borrow_status] = useState("")
+  const [item_description,setitem_description] = useState("")
+  const [item_note,setitem_note] = useState("")
+
+  const handleitem_idChange = (e) =>{
+    setitem_id(e.target.value)
+  }
+  const handleitem_id_typeChange = (e) =>{
+    setitem_id_type(e.target.value)
+  }
+  const handleitem_nameChange = (e) =>{
+    setitem_name(e.target.value)
+  }
+  const handleitem_categoryeChange = (e) =>{
+    setitem_category(e.target.value)
+  }
+  const handleitem_facultyChange = (e) =>{
+    setitem_faculty(e.target.value)
+  }
+  const handleitem_departmentChange = (e) =>{
+    setitem_department(e.target.value)
+  }
+  const handleitem_statusChange = (e) =>{
+    setitem_status(e.target.value)
+  }
+  const handleitem_borrow_statusChange = (e) =>{
+    setitem_borrow_status(e.target.value)
+  }
+  const handleitem_descriptionChange = (e) =>{
+    setitem_description(e.target.value)
+  }
+  const handleitem_noteChange = (e) =>{
+    setitem_note(e.target.value)
+  }
+  const handleOnSubmit = (item_idv) => (e) =>{
+    e.preventDefault();
+    axios.post(`http://localhost:8000/api/dashboard/item-info/edit/${item_idv}/`,
+    {item_id,item_id_type,item_name,item_category,item_faculty,item_department,item_status,item_borrow_status,item_description,item_note })
+    .then((Response)=>{
+      alert(Response)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
+  
     return(
-        <div class="sb-nav-fixed">
+        <div className="sb-nav-fixed">
       <Head>
         <title>Edit Items</title>
       </Head>
@@ -19,47 +74,53 @@ export default function EditItems(params) {
         <div id="layoutSidenav_content">
           <main>
             {/* Dashboard Content */}
-            <div class="container-fluid px-4">
-              <h1 class="mt-4">Items Management</h1>
-              <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">Items Management / Edit</li>
+            <div className="container-fluid px-4">
+              <h1 className="mt-4">Items Management</h1>
+              <ol className="breadcrumb mb-4">
+                <li className="breadcrumb-item active">Items Management / Edit</li>
               </ol>
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card">
-                    <div class="card-header">
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="card">
+                    <div className="card-header">
                       <h4> Edit Item</h4>
                     </div>
-                    <div class="card-body">
-                      <form method="post">
-                        <div class="row">
-                          <div class="col-md-6 mb-3">
-                            <label for="">Item ID</label>
+                    <div className="card-body">
+                      <form onSubmit={handleOnSubmit} method="post">
+                        <div className="row">
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Item ID</label>
                             <input
                               type="text"
                               name="itemid"
-                              class="form-control"
+                              className="form-control"
+                              value={item_id}
+                              onChange = {handleitem_idChange}
                             />
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Item ID Type</label>
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Item ID Type</label>
                             <input
                               type="text"
                               name="idtype"
-                              class="form-control"
+                              className="form-control"
+                              value={item_id_type}
+                              onChange = {handleitem_id_typeChange}
                             />
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Item Name</label>
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Item Name</label>
                             <input
                               type="text"
                               name="Itemname"
-                              class="form-control"
+                              className="form-control"
+                              value={item_name}
+                              onChange={handleitem_nameChange}
                             />
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Item Type(Category)</label>
-                            <select name="faculty" require class="form-control">
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Item Type(Category)</label>
+                            <select value={item_category} onChange={handleitem_categoryeChange} name="faculty" require={toString()} className="form-control">
                               <option value="">--Select Faculty--</option>
                               <option value="3">Resistor</option>
                               <option value="2">IC Module</option>
@@ -67,16 +128,16 @@ export default function EditItems(params) {
                               <option value="0">Powersupply</option>
                             </select>
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Faculty</label>
-                            <select name="faculty" require class="form-control">
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Faculty</label>
+                            <select value={item_faculty} onChange={handleitem_facultyChange} name="faculty" require={toString()} className="form-control">
                               <option value="">--Select Faculty--</option>
                               <option value="1">ECE</option>
                             </select>
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Department</label>
-                            <select name="department" require class="form-control">
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Department</label>
+                            <select value={item_department} onChange={handleitem_departmentChange} name="department" require={toString()} className="form-control">
                               <option value="">--Select Department--</option>
                               <option value="3">EE</option>
                               <option value="2">MEE</option>
@@ -84,18 +145,18 @@ export default function EditItems(params) {
                               <option value="0">Cpr.E</option>
                             </select>
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Physical Status</label>
-                            <select name="physStatus" require class="form-control">
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Physical Status</label>
+                            <select value={item_status} onChange={handleitem_statusChange} name="physStatus" require={toString()} className="form-control">
                               <option value="">--Select Role--</option>
                               <option value="3">Defective (cannot be used)</option>
                               <option value="1">Normal (can be used)</option>
                               <option value="0">Slightly damaged (still usable)</option>
                             </select>
                           </div>
-                          <div class="col-md-6 mb-3">
-                            <label for="">Borrow Status</label>
-                            <select name="borrowStatus" require class="form-control">
+                          <div className="col-md-6 mb-3">
+                            <label htmlFor="">Borrow Status</label>
+                            <select value={item_borrow_status} onChange={handleitem_borrow_statusChange} name="borrowStatus" require={toString()} className="form-control">
                               <option value="">--Select Role--</option>
                               <option value="3">Borrowed</option>
                               <option value="1">Available</option>
@@ -103,22 +164,23 @@ export default function EditItems(params) {
                             </select>
                           </div>
 
-                          <div class="col-md-12 mb-3">
-                            <label for="">Description</label>
-                            <textarea name="description" required class="form-control" rows="4"></textarea>
+                          <div className="col-md-12 mb-3">
+                            <label htmlFor="">Description</label>
+                            <textarea value={item_description} onChange={handleitem_descriptionChange} name="description" require={toString()} className="form-control" rows="4"></textarea>
                           </div>
-                          <div class="col-md-12 mb-3">
-                            <label for="">Note</label>
-                            <textarea name="note" required class="form-control" rows="4"></textarea>
+                          <div className="col-md-12 mb-3">
+                            <label htmlFor="">Note</label>
+                            <textarea value={item_note} onChange={handleitem_noteChange} name="note" require={toString()} className="form-control" rows="4"></textarea>
                           </div>
+                          
 
                           {/* Select picture Btn here */}
-                          <div class="col-md-12 mb-3">
-                            <label for="">Picture</label>
-                            <div class="input-group">
-                              <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"/>
-                                <label class="custom-file-label" for="inputGroupFile04">Choose Picture</label>
+                          <div className="col-md-12 mb-3">
+                            <label htmlFor="">Picture</label>
+                            <div className="input-group">
+                              <div className="custom-file">
+                                <input type="file" className="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"/>
+                                <label className="custom-file-label" htmlFor="inputGroupFile04">Choose Picture</label>
                               </div>
                               
                               {/* Show image url when select image in directory */}
@@ -130,21 +192,19 @@ export default function EditItems(params) {
                             </div>
                           </div>
                           
-                          <div class="col-md-12 mb-3">
+                          <div className="col-md-12 mb-3">
                             <button
                               type="submit"
                               name="add_user"
-                              class="btn btn-success"
+                              className="btn btn-success"
                             >
                               Update Item
                             </button>
-                            <button
-                              type="submit"
-                              name="cancel"
-                              class="btn btn-danger"
+                            <Link href={"/Admin/ItemsManage"}
+                              className="btn btn-danger"
                             >
                               Cancel
-                            </button>
+                            </Link>
                           </div>
                         </div>
                       </form>
