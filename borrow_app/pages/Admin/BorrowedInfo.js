@@ -3,10 +3,46 @@ import AdminNavbar from "@/components/AdminNavbar";
 import AdminSidebar from "@/components/AdminSidebar";
 import Head from "next/head";
 import Link from "next/link";
+import axios from "axios";
+import { use, useState } from "react";
+import { useEffect } from "react";
 
 export default function BorrowedInfo() {
+  const [BorrowedItem,setBorrowedItem] = useState([])
+  const fetchData = async () => {
+    try {
+      axios.get('http://localhost:8000/api/dashboard/borrowing-info/')
+      .then(response => {
+        console.log(response);
+        setBorrowedItem(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{ 
+    fetchData();
+  }, []);
+  const handleDelelte = (b_id)=>(e) => {
+    e.preventDefault();
+    axios.delete(`http://localhost:8000/api/dashboard/borrowing-info/delete/${parseInt(b_id)}/`,
+     {user_id :parseInt(b_id)
+    })
+    .then((response) => {
+      console.log(response.data);
+      fetchData()
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
     return(
-      <div class="sb-nav-fixed">
+      <div className="sb-nav-fixed">
       <Head>
         <title>Borrowing Infomation</title>
       </Head>
@@ -20,30 +56,30 @@ export default function BorrowedInfo() {
         <div id="layoutSidenav_content">
           <main>
             {/* Dashboard Content */}
-            <div class="container-fluid px-4">
+            <div className="container-fluid px-4">
               {/* header */}
-              <h1 class="mt-4">Borrowing Infomation</h1>
+              <h1 className="mt-4">Borrowing Infomation</h1>
               {/* header */}
 
               {/* sub-header */}
-              <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">
+              <ol className="breadcrumb mb-4">
+                <li className="breadcrumb-item active">
                   Dashboard / Borrowing Infomation
                 </li>
               </ol>
               {/* sub-header */}
 
               {/* card */}
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="card">
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="card">
                     {/* card header */}
-                    <div class="card-header">
+                    <div className="card-header">
                       <h4>
                         {" "}
                         Borrowing Infomation
                         <Link href="/Admin/AddBorrowed">
-                        <div class="btn btn-primary float-end">
+                        <div className="btn btn-primary float-end">
                           Add
                         </div>
                         </Link>
@@ -52,11 +88,11 @@ export default function BorrowedInfo() {
                     {/* card header */}
 
                     {/* card body */}
-                    <div class="card-body">
+                    <div className="card-body">
                       {/* card body */}
 
                       {/* registered users table */}
-                      <table class="table table-bordered">
+                      <table className="table table-bordered">
                         {/* table header */}
                         <thead>
                           <tr>
@@ -72,7 +108,8 @@ export default function BorrowedInfo() {
                         </thead>
 
                         <tbody>
-                            <tr>
+                        { BorrowedItem.map((data,index)=>(<tr key={index}>
+                            
                                 <td>ad</td>
                                 <td>ad</td>
                                 <td>ad</td>
@@ -86,32 +123,14 @@ export default function BorrowedInfo() {
                                 </td>
                                 <td>
                                 <form method="post">
-                                <button type="sumbit" name="user_delete"  class="btn btn-danger">Delete</button>
+                                <button onClick={handleDelelte(data.b_id)} name="user_delete"  className="btn btn-danger">Delete</button>
                                 </form>
                                 </td>
-                            </tr>
+                            </tr>)) }
                             
                             {/* table header */}
                             {/* Put Data here */}
-                            <tr>
-                                <td>ad</td>
-                                <td>ad</td>
-                                <td>ad</td>
-                                <td>asd</td>
-                                <td>asd</td>
-                                <td>asd</td>
-                                <td>
-                                  <Link href="/Admin/EditBorrowed">
-                                  <div className="btn btn-success">Edit</div>
-                                  </Link>
-                                </td>
-                                <td>
-                                <form method="post">
-                                <button type="sumbit" name="user_delete"  class="btn btn-danger">Delete</button>
-                                </form>
-                                </td>
-                            </tr>
- 
+                
                         </tbody>     
                         
                       </table>

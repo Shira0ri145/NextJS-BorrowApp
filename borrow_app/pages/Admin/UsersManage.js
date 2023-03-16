@@ -33,7 +33,7 @@ export default function UsersManage() {
   const handleDelelte = (u_id)=>(e) => {
     e.preventDefault();
     axios.delete(`http://localhost:8000/api/dashboard/user-management/delete/${parseInt(u_id)}/`,
-     {user_id :parseInt(Item.u_id)
+     {user_id :parseInt(u_id)
     })
     .then((response) => {
       console.log(response.data);

@@ -20,7 +20,7 @@ export default function Home() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:8000/api/login/', 
+    axios.post('http://labeq-env.eba-749v4c5r.ap-southeast-1.elasticbeanstalk.com/api/login/', 
     { u_email:u_email, u_password:u_password })
     .then((response) => {
       Router.push("/Admin")})

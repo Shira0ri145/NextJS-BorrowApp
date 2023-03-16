@@ -13,7 +13,7 @@ export default function Items() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/items');
+        const response = await axios.get('http://labeq-env.eba-749v4c5r.ap-southeast-1.elasticbeanstalk.com/api/items');
         setItems(response.data);
       } catch (error) {
         console.log(error);

@@ -44,7 +44,7 @@ export default function AddUser(params) {
     // axios.post('http://localhost:8000/api/dashboard/user-management/add/',{ u_name:u_name,u_email:u_email,
     // u_password:u_password,u_tel:u_tel,u_faculty:u_faculty,
     // u_department:u_department,u_privilege:u_privilege
-    axios.post('http://localhost:8000/api/dashboard/user-management/add/',
+    axios.post('http://labeq-env.eba-749v4c5r.ap-southeast-1.elasticbeanstalk.com/api/dashboard/user-management/add/',
     { u_name,u_email,u_password,u_tel:parseInt(u_tel),u_faculty:parseInt(u_faculty),u_department:parseInt(u_department),u_privilege:parseInt(u_privilege)})
     .then((Response)=>{
       alert(Response)
@@ -52,9 +52,6 @@ export default function AddUser(params) {
     .catch((error)=>{
       console.log(error)
     })
-  }
-  const handleCancel = (e)  =>{
-    Router.push('/Admin')
   }
   
 

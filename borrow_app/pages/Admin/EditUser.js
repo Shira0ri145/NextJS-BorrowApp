@@ -36,7 +36,7 @@ export default function EditUser(params) {
   }
   const handleOnSubmit = (e) =>{
     e.preventDefault();
-    axios.post('http://localhost:8000/api/dashboard/user-management/edit/',{ u_name:u_name
+    axios.post('http://labeq-env.eba-749v4c5r.ap-southeast-1.elasticbeanstalk.com/api/dashboard/user-management/edit/',{ u_name:u_name
     ,u_email:u_email,u_password:u_password,u_tel:u_tel,u_faculty:u_faculty,u_department:u_department
     ,u_privilege:u_privilege
     }).then((Response)=>{
