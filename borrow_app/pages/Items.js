@@ -9,16 +9,15 @@ import Image from 'next/image';
 export default function Items() {
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
-  
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/items');
+      setItems(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/api/items');
-        setItems(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     fetchData();
   }, []);
 
