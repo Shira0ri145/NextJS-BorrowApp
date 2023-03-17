@@ -5,16 +5,20 @@ import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import DataTable from 'react-data-table-component';
 
 export default function UsersManage() {
-  const [Item,setItem] = useState([])
+  const [Users,setUsers] = useState([])
+  const [search,setSearch] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState([]);
   
   const fetchData = async () => {
     try {
       axios.get('http://localhost:8000/api/dashboard/user-management/')
       .then(response => {
         console.log(response);
-        setItem(response.data);
+        setUsers(response.data);
+        setFilteredUsers(response.data);
       })
       .catch(error => {
         console.log(error);
@@ -27,14 +31,19 @@ export default function UsersManage() {
   useEffect(()=>{ 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const result = Users.filter(Users => {
+      return Users.u_name.toLowerCase().match(search.toLowerCase());
+    })
+
+    setFilteredUsers(result);
+  }, [search])
   
 
   // const delete  pass
-  const handleDelelte = (u_id)=>(e) => {
-    e.preventDefault();
-    axios.delete(`http://localhost:8000/api/dashboard/user-management/delete/${parseInt(u_id)}/`,
-     {user_id :parseInt(u_id)
-    })
+  const handleDelelte = (u_id) => {
+    axios.delete(`http://localhost:8000/api/dashboard/user-management/delete/${parseInt(u_id)}/`)
     .then((response) => {
       console.log(response.data);
       fetchData()
@@ -43,6 +52,80 @@ export default function UsersManage() {
       console.error(error);
     });
 };
+
+const columns = [
+  {
+    name : "ID",
+    cell: row => (
+      <span style={{ fontSize: "12px", fontWeight: "bold" }}>
+        {row.u_id}
+      </span>
+    ),
+    sortable: true,
+  },
+  {
+    name : "NAME",
+    cell: row => (
+      <span style={{ fontSize: "16px" }}>
+        {row.u_name}
+      </span>
+    ),
+    sortable: true,
+  },
+  {
+    name : "TELEPHONE",
+    cell: row => (
+      <span style={{ fontSize: "16px" }}>
+        {row.u_tel}
+      </span>
+    ),
+    sortable: true,
+  },
+  {
+    name: "FACULTY",
+    cell: row => (
+      <span style={{ fontSize: "16px" }}>
+        {row.u_faculty}
+      </span>
+    ),
+    sortable: true,
+  },
+  {
+    name : "DEPARTMENT",
+    cell: row => (
+      <span style={{ fontSize: "16px" }}>
+        {row.u_department}
+      </span>
+    ),
+    sortable: true,
+  },
+  {
+    name : "ROLE",
+    cell: row => (
+      <span style={{ fontSize: "16px" }}>
+        {row.u_privilege}
+      </span>
+    ),
+    sortable: true,
+  },
+  {
+    name : "EDIT / MORE",
+    cell: row => <Link href={`/Admin/EditUser?id=${row.u_id}`} className="btn btn-success">Edit</Link>
+  },
+  {
+    name: "DELETE",
+    cell: (row) => (
+      <button
+        onClick={() => handleDelelte(row.u_id)}
+        name="item_delete"
+        className="btn btn-danger"
+      >
+        Delete
+      </button>
+    ),
+  },
+  
+]
 
 
   return (
@@ -93,41 +176,27 @@ export default function UsersManage() {
                       {/* card body */}
 
                       {/* registered users table */}
-                      <table className="table table-bordered">
-                        {/* table header */}
-                        <thead>
-                          <tr>
-                            <th>ID</th>
-                            <th>NAME</th>
-                            <th>TELEPHONE</th>
-                            <th>FACULTY</th>
-                            <th>DEPARTMENT</th>
-                            <th>ROLE</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                          </tr>
-                        </thead>
+                      <DataTable 
+                                columns={columns} 
+                                data={filteredUsers} 
+                                pagination
+                                fixedHeader
+                                fixedHeaderScrollHeight="500px"
+                                highlightOnHover
+                                actions={
+                                  <input 
+                                    type="text" 
+                                    placeholder="Search by Name" 
+                                    className="w-50 form-control"
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    >
+                                    </input>}
+                                
+                                
+                                >
 
-                        <tbody>
-                           { Item.map((data,index)=>(<tr key={index}>
-                                <td>{data.u_id}</td>
-                                <td>{data.u_name}</td>
-                                <td>{data.u_tel}</td>
-                                <td>{data.u_faculty}</td>
-                                <td>{data.u_department}</td>
-                                <td>{data.u_privilege}</td>
-                                <td>
-                                    <Link href="/Admin/EditUser" className="btn btn-success">Edit</Link>
-                                </td>
-                                <td>
-                                <form method="post">
-                                <button onClick={handleDelelte(data.u_id)} type="sumbit" name="user_delete"  className="btn btn-danger">Delete</button>
-                                </form>
-                                </td>
-                            </tr>)) }
-                        </tbody>     
-                        
-                      </table>
+                                </DataTable>
                     </div>
                   </div>
                 </div>

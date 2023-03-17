@@ -42,19 +42,17 @@ export default function test() {
     setFilteredItems(result);
   }, [search])
 
-  const handleDelelte = (item_idv)=>(e) => {
-    e.preventDefault();
-    axios.delete(`http://localhost:8000/api/dashboard/item-info/delete/${item_idv}/`,
-     {item_id :item_idv
-    })
-    .then((response) => {
-      console.log(response.data);
-      fetchData()
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
+  const handleDelete = (item_idv) => {
+    axios
+      .delete(`http://localhost:8000/api/dashboard/item-info/delete/${item_idv}/`)
+      .then((response) => {
+        console.log(response.data);
+        fetchData();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const columns = [
     {
@@ -89,17 +87,22 @@ export default function test() {
     },
     {
       name : "EDIT / MORE",
-      cell: row => <Link href="/Admin/EditItems" className="btn btn-success">Edit</Link>
+      cell: row => <Link href={`/Admin/EditItems?id=${row.item_id}`} className="btn btn-success">Edit</Link>
     },
     {
-      name : "DELETE",
-      cell: row => <form method="post">
-      <button onClick={handleDelelte}  name="user_delete"  className="btn btn-danger">Delete</button>
-    </form>
+      name: "DELETE",
+      cell: (row) => (
+        <button
+          onClick={() => handleDelete(row.item_id)}
+          name="item_delete"
+          className="btn btn-danger"
+        >
+          Delete
+        </button>
+      ),
     },
     
   ]
-
 
 
   return (

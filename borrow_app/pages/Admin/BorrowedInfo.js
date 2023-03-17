@@ -6,15 +6,20 @@ import Link from "next/link";
 import axios from "axios";
 import { use, useState } from "react";
 import { useEffect } from "react";
+import DataTable from 'react-data-table-component';
 
 export default function BorrowedInfo() {
   const [BorrowedItem,setBorrowedItem] = useState([])
+  const [search,setSearch] = useState("");
+  const [filteredItems, setFilteredItems] = useState([]);
+
   const fetchData = async () => {
     try {
       axios.get('http://localhost:8000/api/dashboard/borrowing-info/')
       .then(response => {
         console.log(response);
         setBorrowedItem(response.data);
+        setFilteredItems(response.data);
       })
       .catch(error => {
         console.log(error);
@@ -27,11 +32,17 @@ export default function BorrowedInfo() {
   useEffect(()=>{ 
     fetchData();
   }, []);
-  const handleDelelte = (b_id)=>(e) => {
-    e.preventDefault();
-    axios.delete(`http://localhost:8000/api/dashboard/borrowing-info/delete/${parseInt(b_id)}/`,
-     {user_id :parseInt(b_id)
+
+  useEffect(() => {
+    const result = BorrowedItem.filter(BorrowedItem => {
+      return BorrowedItem.b_item.toLowerCase().match(search.toLowerCase());
     })
+
+    setFilteredItems(result);
+  }, [search])
+  
+  const handleDelelte = (b_id) => {
+    axios.delete(`http://localhost:8000/api/dashboard/borrowing-info/delete/${parseInt(b_id)}/`)
     .then((response) => {
       console.log(response.data);
       fetchData()
@@ -40,6 +51,80 @@ export default function BorrowedInfo() {
       console.error(error);
     });
 };
+
+const columns = [
+  {
+    name : "ITEM NAME",
+    cell: row => (
+      <span style={{ fontSize: "12px", fontWeight: "bold" }}>
+        {row.b_item}
+      </span>
+    ),
+    sortable: true,
+  },
+  {
+    name : "EMAIL",
+    cell: row => (
+      <span style={{ fontSize: "16px" }}>
+        {row.b_user}
+      </span>
+    ),
+    sortable: true,
+  },
+  {
+    name : "BORROW TIME",
+    cell: row => (
+      <span style={{ fontSize: "16px" }}>
+        {row.b_borrow_time}
+      </span>
+    ),
+    sortable: true,
+  },
+  {
+    name: "RETURN TIME",
+    cell: row => (
+      <span style={{ fontSize: "16px" }}>
+        {row.b_return_time}
+      </span>
+    ),
+    sortable: true,
+  },
+  {
+    name : "LOCATION",
+    cell: row => (
+      <span style={{ fontSize: "16px" }}>
+        {row.b_location}
+      </span>
+    ),
+    sortable: true,
+  },
+  {
+    name : "NOTE",
+    cell: row => (
+      <span style={{ fontSize: "16px" }}>
+        {row.b_note}
+      </span>
+    ),
+    sortable: true,
+  },
+  {
+    name : "EDIT / MORE",
+    cell: row => <Link href={`/Admin/EditBorrowed?id=${row.b_id}`} className="btn btn-success">Edit</Link>
+  },
+  {
+    name: "DELETE",
+    cell: (row) => (
+      <button
+        onClick={() => handleDelelte(row.b_id)}
+        name="item_delete"
+        className="btn btn-danger"
+      >
+        Delete
+      </button>
+    ),
+  },
+  
+]
 
     return(
       <div className="sb-nav-fixed">
@@ -92,47 +177,27 @@ export default function BorrowedInfo() {
                       {/* card body */}
 
                       {/* registered users table */}
-                      <table className="table table-bordered">
-                        {/* table header */}
-                        <thead>
-                          <tr>
-                            <th>ITEM NAME</th>
-                            <th>EMAIL</th>
-                            <th>BORROW TIME</th>
-                            <th>RETURN TIME</th>
-                            <th>LOCATION</th>
-                            <th>NOTE</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                          </tr>
-                        </thead>
+                      <DataTable 
+                                columns={columns} 
+                                data={filteredItems} 
+                                pagination
+                                fixedHeader
+                                fixedHeaderScrollHeight="500px"
+                                highlightOnHover
+                                actions={
+                                  <input 
+                                    type="text" 
+                                    placeholder="Search by Items name" 
+                                    className="w-50 form-control"
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    >
+                                    </input>}
+                                
+                                
+                                >
 
-                        <tbody>
-                        { BorrowedItem.map((data,index)=>(<tr key={index}>
-                                <td>{data.b_item}</td>
-                                <td>{data.b_user}</td>
-                                <td>{data.b_borrow_time}</td>
-                                <td>{data.b_return_time}</td>
-                                <td>{data.b_location}</td>
-                                <td>{data.b_note}</td>
-                                <td>
-                                <Link href="/Admin/EditBorrowed">
-                                <div className="btn btn-success">Edit</div>
-                                </Link>
-                                </td>
-                                <td>
-                                <form method="post">
-                                <button onClick={handleDelelte(data.b_id)} name="user_delete"  className="btn btn-danger">Delete</button>
-                                </form>
-                                </td>
-                            </tr>)) }
-                            
-                            {/* table header */}
-                            {/* Put Data here */}
-                
-                        </tbody>     
-                        
-                      </table>
+                                </DataTable>
                     </div>
                   </div>
                 </div>

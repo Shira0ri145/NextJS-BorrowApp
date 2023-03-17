@@ -7,10 +7,12 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import Script from "next/script";
+import DataTable from 'react-data-table-component';
 
-
-export default function ItemsManage() {
-  const [Item,setItem] = useState([])
+export default function ItemManage() {
+  const [Item,setItem] = useState([]);
+  const [search,setSearch] = useState("");
+  const [filteredItems, setFilteredItems] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -18,6 +20,7 @@ export default function ItemsManage() {
       .then(response => {
         console.log(response);
         setItem(response.data);
+        setFilteredItems(response.data);
       })
       .catch(error => {
         console.log(error);
@@ -28,35 +31,107 @@ export default function ItemsManage() {
   }
 
   useEffect(()=>{ 
-    if (typeof window !== "undefined") {
-      
-      
-    }
     fetchData();
   }, []);
 
-  const handleDelelte = (item_idv)=>(e) => {
-    e.preventDefault();
-    axios.delete(`http://localhost:8000/api/dashboard/item-info/delete/${item_idv}/`,
-     {user_id :item_idv
+  useEffect(() => {
+    const result = Item.filter(Item => {
+      return Item.item_name.toLowerCase().match(search.toLowerCase());
     })
-    .then((response) => {
-      console.log(response.data);
-      fetchData()
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
 
+    setFilteredItems(result);
+  }, [search])
+
+  const handleDelete = (item_idv) => {
+    axios
+      .delete(`http://localhost:8000/api/dashboard/item-info/delete/${item_idv}/`)
+      .then((response) => {
+        console.log(response.data);
+        fetchData();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const columns = [
+    {
+      name : "ITEM ID",
+      cell: row => (
+        <span style={{ fontSize: "12px", fontWeight: "bold" }}>
+          {row.item_id}
+        </span>
+      ),
+      sortable: true,
+    },
+    {
+      name : "ITEM TYPE",
+      cell: row => (
+        <span style={{ fontSize: "16px" }}>
+          {row.item_id_type}
+        </span>
+      ),
+      sortable: true,
+    },
+    {
+      name : "ITEM NAME",
+      cell: row => (
+        <span style={{ fontSize: "16px" }}>
+          {row.item_name}
+        </span>
+      ),
+      sortable: true,
+    },
+    {
+      name: "FACULTY",
+      cell: row => (
+        <span style={{ fontSize: "16px" }}>
+          {row.item_faculty}
+        </span>
+      ),
+      sortable: true,
+    },
+    {
+      name : "DEPARTMENT",
+      cell: row => (
+        <span style={{ fontSize: "16px" }}>
+          {row.item_department}
+        </span>
+      ),
+      sortable: true,
+    },
+    {
+      name : "BORROW STATUS",
+      cell: row => (
+        <span style={{ fontSize: "16px" }}>
+          {row.item_status}
+        </span>
+      ),
+      sortable: true,
+    },
+    {
+      name : "EDIT / MORE",
+      cell: row => <Link href={`/Admin/EditItems?id=${row.item_id}`} className="btn btn-success">Edit</Link>
+    },
+    {
+      name: "DELETE",
+      cell: (row) => (
+        <button
+          onClick={() => handleDelete(row.item_id)}
+          name="item_delete"
+          className="btn btn-danger"
+        >
+          Delete
+        </button>
+      ),
+    },
+    
+  ]
 
 
   return (
     <div className="sb-nav-fixed">
       <Head>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-      <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>
         <title>Items Management</title>
         
       </Head>
@@ -85,55 +160,29 @@ export default function ItemsManage() {
                             </div>
                             
                             <div className="card-body">
-                                <table id="itemsdatatable">
-                                    <thead>
-                                        <tr>
-                                          <th>ITEM ID</th>
-                                          <th>ITEM TYPE</th>
-                                          <th>ITEM NAME</th>
-                                          <th>FACULTY</th>
-                                          <th>DEPARTMENT</th>
-                                          <th>BORROW STATUS</th>
-                                          <th>Edit</th>
-                                          <th>Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                          <th>ITEM ID</th>
-                                          <th>ITEM TYPE</th>
-                                          <th>ITEM NAME</th>
-                                          <th>FACULTY</th>
-                                          <th>DEPARTMENT</th>
-                                          <th>BORROW STATUS</th>
-                                          <th>Edit</th>
-                                          <th>Delete</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                      { Item.map((data,index)=>(<tr key={index}>
-                                      <td>{data.item_id}</td>
-                                      <td>{data.item_id_type}</td>
-                                      <td>{data.item_name}</td>
-                                      <td>{data.item_faculty}</td>
-                                      <td>{data.item_department}</td>
-                                      <td>{data.item_borrow_status}</td>
-                                      <td>
-                                        <Link href="/Admin/EditItems" className="btn btn-success">Edit</Link>
-                                      </td>
-                                      <td>
-                                        <form method="post">
-                                          <button onClick={handleDelelte}  name="user_delete"  className="btn btn-danger">Delete</button>
-                                        </form>
-                                      </td>
+                                <DataTable 
+                                columns={columns} 
+                                data={filteredItems} 
+                                pagination
+                                fixedHeader
+                                fixedHeaderScrollHeight="500px"
+                                highlightOnHover
+                                actions={
+                                  <input 
+                                    type="text" 
+                                    placeholder="Search by Items name" 
+                                    className="w-50 form-control"
+                                    value={search}
+                                    onChange={(e) => setSearch(e.target.value)}
+                                    
+                                    >
 
-                                      </tr>))}
-                            
-                            {/* table header */}
-                            {/* Put Data here */}
- 
-                                      </tbody>     
-                                </table>
+                                    </input>}
+                                
+                                
+                                >
+
+                                </DataTable>
                             </div>
 
 

@@ -5,6 +5,7 @@ import Head from "next/head";
 import Image from 'next/image';
 import { useState } from "react";
 import axios from "axios";
+import Link from "next/link";
 
 export default function EditItems(params) {
   const [item_id,setitem_id] = useState("")

@@ -11,21 +11,36 @@ export default function Contact() {
             </Head>
             
             <UserNavbar/>
-            <h1>
-                <div className={styles.mes}>
-                    <label className = {styles.label} > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu scelerisque elit. 
-                    <br/>Quisque interdum pellentesque rhoncus. Mauris tempor sollicitudin tincidunt. 
-                    <br/>Phasellus sodales ornare sagittis. Sed viverra neque dolor, quis tristique urna dignissim eu. 
-                    <br/>Phasellus euismod ex a odio dignissim hendrerit. Praesent sollicitudin ligula quis fermentum viverra. 
-                    <br/>Nam eget tristique leo, in gravida sem.Aenean tristique massa mauris, luctus 
-                    <br/>porta eros blandit at. Suspendisse quam orci, rhoncus eu purus a, 
-                    </label>
-                </div>
-                <div>
-                    <Image src="/contact.jpg" alt = "logo"  width= {100} height= {100}  className={styles.image} />
-                </div>
+            <section>
+            <div>
+            <main className={styles.Aboutus}>
+    <h2 className={styles.Title}>Our Team</h2>
+    <section id="sec">
+      <div className={styles.person}>
+        <Image src="" alt="Profile picture" width="200" height="200"/>
+        <h3>p1 </h3>
+        <p>640</p>
+      </div>
+      <div className={styles.person}>
+        <Image src="" alt="Profile picture"width="200" height="200"/>
+        <h3>Athibdee Ringcharoen</h3>
+        <p>6401012620153</p>
+      </div>
+      <div className={styles.person}>
+        <Image src="" alt="Profile picture" width="200" height="200"/>
+        <h3>p2</h3>
+        <p>64</p>
+      </div>
+      <div className={styles.person}>
+        <Image src="" alt="Profile picture" width="200" height="200"/>
+        <h3>p3 </h3>
+        <p>64</p>
+      </div>
+    </section>
+  </main>
+            </div>
+</section>
 
-            </h1>
         
         </>
             
