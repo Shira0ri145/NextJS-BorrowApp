@@ -3,11 +3,22 @@ import AdminNavbar from "@/components/AdminNavbar";
 import AdminSidebar from "@/components/AdminSidebar";
 import Head from "next/head";
 import Image from 'next/image';
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
 
 export default function EditItems(params) {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    let role = window.localStorage.getItem('role');
+    let token = window.localStorage.getItem('token');
+    if((role !== 'Admin') || !token){
+      router.push('/')
+    }
+  }, []);
   const [item_id,setitem_id] = useState("")
   const [item_id_type,setitem_id_type] = useState("")
   const [item_name,setitem_name] = useState("")
@@ -51,7 +62,7 @@ export default function EditItems(params) {
   }
   const handleOnSubmit = (item_idv) => (e) =>{
     e.preventDefault();
-    axios.post(`http://localhost:8000/api/dashboard/item-info/edit/${item_idv}/`,
+    axios.post(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/item-info/edit/${item_idv}/`,
     {item_id,item_id_type,item_name,item_category,item_faculty,item_department,item_status,item_borrow_status,item_description,item_note })
     .then((Response)=>{
       alert(Response)

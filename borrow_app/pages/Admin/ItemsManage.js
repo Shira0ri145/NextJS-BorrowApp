@@ -4,19 +4,20 @@ import AdminSidebar from "@/components/AdminSidebar";
 import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState,useEffect } from "react";
+import { useRouter } from "next/router";
 import Script from "next/script";
 import DataTable from 'react-data-table-component';
 
 export default function ItemManage() {
+  const router = useRouter()
   const [Item,setItem] = useState([]);
   const [search,setSearch] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
 
   const fetchData = async () => {
     try {
-      axios.get('http://localhost:8000/api/dashboard/item-info/')
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/item-info/`)
       .then(response => {
         console.log(response);
         setItem(response.data);
@@ -31,6 +32,11 @@ export default function ItemManage() {
   }
 
   useEffect(()=>{ 
+    let role = window.localStorage.getItem('role');
+    let token = window.localStorage.getItem('token');
+    if((role !== 'Admin') || !token){
+      router.push('/')
+    }
     fetchData();
   }, []);
 
@@ -42,9 +48,9 @@ export default function ItemManage() {
     setFilteredItems(result);
   }, [search])
 
-  const handleDelete = (item_idv) => {
+  const handleDelete = (item_id) => {
     axios
-      .delete(`http://localhost:8000/api/dashboard/item-info/delete/${item_idv}/`)
+      .delete(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/item-info/delete/${item_id}/`)
       .then((response) => {
         console.log(response.data);
         fetchData();
@@ -83,16 +89,7 @@ export default function ItemManage() {
       sortable: true,
     },
     {
-      name: "FACULTY",
-      cell: row => (
-        <span style={{ fontSize: "16px" }}>
-          {row.item_faculty}
-        </span>
-      ),
-      sortable: true,
-    },
-    {
-      name : "DEPARTMENT",
+      name: "DEPARTMENT",
       cell: row => (
         <span style={{ fontSize: "16px" }}>
           {row.item_department}
@@ -101,10 +98,19 @@ export default function ItemManage() {
       sortable: true,
     },
     {
+      name : "MAJOR",
+      cell: row => (
+        <span style={{ fontSize: "16px" }}>
+          {row.item_major}
+        </span>
+      ),
+      sortable: true,
+    },
+    {
       name : "BORROW STATUS",
       cell: row => (
         <span style={{ fontSize: "16px" }}>
-          {row.item_status}
+          {row.item_borrow_status}
         </span>
       ),
       sortable: true,

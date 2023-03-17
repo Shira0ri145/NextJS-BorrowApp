@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 export default function Home() {
   const [u_email, setu_email] = useState('');
   const [u_password, setu_password] = useState('');
-  const Router = useRouter()
+  const router = useRouter()
   const handleICITChange = (e) => {
     setu_email(e.target.value);
   };
@@ -20,10 +20,17 @@ export default function Home() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://labeq-env.eba-749v4c5r.ap-southeast-1.elasticbeanstalk.com/api/login/', 
+    axios.post(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/login/`, 
     { u_email:u_email, u_password:u_password })
     .then((response) => {
-      Router.push("/Admin")})
+      window.localStorage.setItem('role', `${response.data.role}`);
+      window.localStorage.setItem('token', `${response.data.token}`);
+      if(response.data.role === 'Admin'){
+        router.push("/Admin")
+      }else if(response.data.role === 'User'){
+        router.push('/MyBorrowed')
+      }
+    })
     .catch((error) => {
       console.error(error);
     });
@@ -34,8 +41,6 @@ export default function Home() {
     <>
     <div className={styles.container}>
       <h1>Login</h1>
-      {JSON.stringify(u_email)}
-      {JSON.stringify(u_password)}
       <form onSubmit={handleSubmit} className={styles.form}>
         <label htmlFor="u_email" className={styles.label}>Email:</label>
         <input

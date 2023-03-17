@@ -36,13 +36,15 @@ export default function AdminNavbar() {
                     </a>
                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                       <li>
-                        <Link className="dropdown-item" href="/Contact">
+                        <Link className="dropdown-item" href="/Items">
                         <div >User view</div>
                         </Link>
                       </li>
                       <li><hr className="dropdown-divider" /></li>
                       <li>
-                        <Link className="dropdown-item" href="/">
+                        <Link className="dropdown-item" onClick={(e)=>{
+                             window.localStorage.clear();
+                        }} href="/">
                         <div >Logout</div>
                         </Link>
                         </li>

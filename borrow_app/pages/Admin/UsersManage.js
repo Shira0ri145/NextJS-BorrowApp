@@ -6,17 +6,18 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DataTable from 'react-data-table-component';
-
+import { useRouter } from "next/router";
 export default function UsersManage() {
+  const router = useRouter()
   const [Users,setUsers] = useState([])
   const [search,setSearch] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   
   const fetchData = async () => {
     try {
-      axios.get('http://localhost:8000/api/dashboard/user-management/')
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/user-management/`)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         setUsers(response.data);
         setFilteredUsers(response.data);
       })
@@ -29,6 +30,11 @@ export default function UsersManage() {
   }
 
   useEffect(()=>{ 
+    let role = window.localStorage.getItem('role');
+    let token = window.localStorage.getItem('token');
+    if((role !== 'Admin') || !token){
+      router.push('/')
+    }
     fetchData();
   }, []);
 
@@ -43,7 +49,7 @@ export default function UsersManage() {
 
   // const delete  pass
   const handleDelelte = (u_id) => {
-    axios.delete(`http://localhost:8000/api/dashboard/user-management/delete/${parseInt(u_id)}/`)
+    axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/user-management/delete/${parseInt(u_id)}/`)
     .then((response) => {
       console.log(response.data);
       fetchData()
@@ -82,19 +88,19 @@ const columns = [
     sortable: true,
   },
   {
-    name: "FACULTY",
+    name: "DEPARTMENT",
     cell: row => (
       <span style={{ fontSize: "16px" }}>
-        {row.u_faculty}
+        {row.u_department}
       </span>
     ),
     sortable: true,
   },
   {
-    name : "DEPARTMENT",
+    name : "MAJOR",
     cell: row => (
       <span style={{ fontSize: "16px" }}>
-        {row.u_department}
+        {row.u_major}
       </span>
     ),
     sortable: true,

@@ -3,7 +3,7 @@ import UserNavbar from '@/components/UserNavbar'
 import styles from "@/styles/Items.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios"; // or import your MongoDB library here
-
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 export default function Items() {
@@ -11,7 +11,7 @@ export default function Items() {
   const [items, setItems] = useState([]);
   const fetchData = async () => {
     try {
-      axios.get('http://localhost:8000/api/items/')
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/items/`)
       .then(response => {
         console.log(response);
         setItems(response.data);
@@ -24,13 +24,18 @@ export default function Items() {
     }
   }
   useEffect(() => {
+    let role = window.localStorage.getItem('role');
+    let token = window.localStorage.getItem('token');
+    if(!role || !token){
+        router.push('/')
+    }
     fetchData();
   }, []);
 
   const handleSearch = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:8000/api/items?search=${searchTerm}`);
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/items?search=${searchTerm}`);
       setItems(response.data);
     } catch (error) {
       console.log(error);

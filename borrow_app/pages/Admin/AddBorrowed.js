@@ -8,11 +8,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
-
+import { useRouter } from 'next/router';
 export default function AddBorrowed(params) {
+  const router = useRouter()
+
+  useEffect(() => {
+    let role = window.localStorage.getItem('role');
+    let token = window.localStorage.getItem('token');
+    if((role !== 'Admin') || !token){
+      router.push('/')
+    }
+  }, []);
+
   const [b_item,setb_item] = useState("") 
   const [b_user,setb_user] = useState("")
   const [b_borrow_time,setb_borrow_time] = useState("")
@@ -21,10 +31,15 @@ export default function AddBorrowed(params) {
   const [b_note,setb_note] = useState("")
   const handleOnSubmit = (e) =>{
     e.preventDefault();
-    axios.post('http://localhost:8000/api/dashboard/borrowing-info/add/',
-    {b_item,b_user,b_borrow_time,b_return_time,b_location,b_note })
+    // console.log(new Date(b_borrow_time).toISOString().slice(0, 19).replace('T', ' '))
+    axios.post(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/borrowing-info/add/`,
+    {b_item,b_user,
+      b_borrow_time:new Date(b_borrow_time).toISOString().slice(0, 19).replace('T', ' '),
+      b_return_time:new Date(b_return_time).toISOString().slice(0, 19).replace('T', ' '),
+      b_location,b_note })
     .then((Response)=>{
-      alert(Response)
+      console.log(Response)
+      router.push('/Admin/BorrowedInfo')
     })
     .catch((error)=>{
       console.log(error)
@@ -85,7 +100,8 @@ export default function AddBorrowed(params) {
                               name="itemname"
                               className="form-control"      
                               value={b_item}
-                              onChange = {handleb_itemChange}                    
+                              onChange = {handleb_itemChange}  
+                              maxLength={50}                  
                             />
                           </div>
                           <div className="col-md-6 mb-3">
@@ -96,6 +112,7 @@ export default function AddBorrowed(params) {
                               className="form-control"
                               value={b_user}
                               onChange = {handleb_userChange}
+                              maxLength={100}  
                             />
                           </div>
                           <div className="col-md-6 mb-3">
@@ -108,9 +125,9 @@ export default function AddBorrowed(params) {
                             </div>
                           </div>
                           <div className="col-md-6 mb-3">
-                            <label value = {b_return_time} onChange = {handleb_return_timeChange} htmlFor="">Return Time</label>
+                            <label htmlFor="">Return Time</label>
                             <div className="input-group">
-                                <input type="datetime-local" name="btime" className="form-control" />
+                                <input value = {b_return_time} onChange = {handleb_return_timeChange}  type="datetime-local" name="btime" className="form-control" />
                                 <span className="input-group-text" >
                                     <FontAwesomeIcon icon={faClock} />
                                 </span>

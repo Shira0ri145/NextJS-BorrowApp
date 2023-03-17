@@ -28,7 +28,9 @@ export default function UserNavbar() {
                         <li className="nav-item mx-0 mx-lg-1"><Link className="nav-link py-3 px-0 px-lg-3 rounded"  href="/Items">Items</Link></li>
                         <li className="nav-item mx-0 mx-lg-1"><Link className="nav-link py-3 px-0 px-lg-3 rounded" href="/MyBorrowed">My Borrowed</Link></li>
                         <li className="nav-item mx-0 mx-lg-1"><Link className="nav-link py-3 px-0 px-lg-3 rounded" href="/Contact">Contact</Link></li>
-                        <li className="nav-item mx-0 mx-lg-1"><Link type="button" className="btn btn-primary py-3 px-0 px-lg-3 rounded" href="/">Logout</Link></li>
+                        <li class="nav-item mx-0 mx-lg-1"><Link type="button" class="btn btn-primary py-3 px-0 px-lg-3 rounded" onClick={(e)=>{
+                             window.localStorage.clear();
+                        }} href="/">Logout</Link></li>
                         
                     </ul>
                 </div>

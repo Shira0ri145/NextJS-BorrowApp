@@ -3,7 +3,7 @@ import UserNavbar from '@/components/UserNavbar'
 import styles from "@/styles/MyBorrowed.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios"; // or import your MongoDB library here
-
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 export default function MyBorrowed() {
@@ -11,7 +11,7 @@ export default function MyBorrowed() {
     const [items, setItems] = useState([]);
     const fetchData = async () => {
       try {
-        axios.get('http://localhost:8000/api/borrowed/')
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/borrowed/`)
         .then(response => {
           console.log(response);
           setItems(response.data);
@@ -23,14 +23,21 @@ export default function MyBorrowed() {
         console.log(error);
       }
     }
+    const router = useRouter()
+ 
     useEffect(() => {
+      let role = window.localStorage.getItem('role');
+      let token = window.localStorage.getItem('token');
+      if(!role || !token){
+        router.push('/')
+      }
       fetchData();
     }, []);
   
     const handleSearch = async (event) => {
       event.preventDefault();
       try {
-        const response = await axios.get(`http://labeq-env.eba-749v4c5r.ap-southeast-1.elasticbeanstalk.com/api/items?search=${searchTerm}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/items?search=${searchTerm}`);
         setItems(response.data);
       } catch (error) {
         console.log(error);

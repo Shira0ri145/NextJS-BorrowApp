@@ -4,8 +4,8 @@ import AdminSidebar from "@/components/AdminSidebar";
 import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
-import { use, useState } from "react";
-import { useEffect } from "react";
+import {  useEffect,useState } from "react";
+import { useRouter } from "next/router";
 import DataTable from 'react-data-table-component';
 
 export default function BorrowedInfo() {
@@ -15,7 +15,7 @@ export default function BorrowedInfo() {
 
   const fetchData = async () => {
     try {
-      axios.get('http://localhost:8000/api/dashboard/borrowing-info/')
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/borrowing-info/`)
       .then(response => {
         console.log(response);
         setBorrowedItem(response.data);
@@ -29,7 +29,14 @@ export default function BorrowedInfo() {
     }
   }
 
-  useEffect(()=>{ 
+  const router = useRouter()
+
+  useEffect(() => {
+    let role = window.localStorage.getItem('role');
+    let token = window.localStorage.getItem('token');
+    if((role !== 'Admin') || !token){
+      router.push('/')
+    }
     fetchData();
   }, []);
 
@@ -42,7 +49,7 @@ export default function BorrowedInfo() {
   }, [search])
   
   const handleDelelte = (b_id) => {
-    axios.delete(`http://localhost:8000/api/dashboard/borrowing-info/delete/${parseInt(b_id)}/`)
+    axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/borrowing-info/delete/${parseInt(b_id)}/`)
     .then((response) => {
       console.log(response.data);
       fetchData()
@@ -54,7 +61,7 @@ export default function BorrowedInfo() {
 
 const columns = [
   {
-    name : "ITEM NAME",
+    name : "ITEM ID",
     cell: row => (
       <span style={{ fontSize: "12px", fontWeight: "bold" }}>
         {row.b_item}
@@ -75,7 +82,11 @@ const columns = [
     name : "BORROW TIME",
     cell: row => (
       <span style={{ fontSize: "16px" }}>
-        {row.b_borrow_time}
+        {(new Date(row.b_borrow_time)).toLocaleString('en-US', {
+          dateStyle: 'medium',
+            timeStyle: 'medium',
+            hour12: false,
+        })}
       </span>
     ),
     sortable: true,
@@ -84,7 +95,11 @@ const columns = [
     name: "RETURN TIME",
     cell: row => (
       <span style={{ fontSize: "16px" }}>
-        {row.b_return_time}
+        {(new Date(row.b_return_time)).toLocaleString('en-US', {
+          dateStyle: 'medium',
+            timeStyle: 'medium',
+            hour12: false,
+        })}
       </span>
     ),
     sortable: true,

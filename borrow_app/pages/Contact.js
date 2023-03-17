@@ -3,7 +3,17 @@ import Head from "next/head";
 import Link from "next/link";
 import styles from "@/styles/Contact.module.css"
 import Image from "next/image";
+import { useEffect } from "react";
+import { useRouter } from 'next/router';
 export default function Contact() {
+  const router = useRouter()
+  useEffect(() => {
+    let role = window.localStorage.getItem('role');
+    let token = window.localStorage.getItem('token');
+    if(!role || !token){
+        router.push('/')
+    }
+  }, []);
     return (
         <>
             <Head>
