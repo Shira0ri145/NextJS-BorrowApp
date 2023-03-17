@@ -9,16 +9,16 @@ import Image from 'next/image';
 export default function MyBorrowed() {
     const [searchTerm, setSearchTerm] = useState("");
     const [items, setItems] = useState([]);
-  
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://labeq-env.eba-749v4c5r.ap-southeast-1.elasticbeanstalk.com/api/borrowed/');
+        setItems(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    
     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get('http://labeq-env.eba-749v4c5r.ap-southeast-1.elasticbeanstalk.com/api/items');
-          setItems(response.data);
-        } catch (error) {
-          console.log(error);
-        }
-      };
       fetchData();
     }, []);
   

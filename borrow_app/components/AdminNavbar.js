@@ -22,7 +22,7 @@ export default function AdminNavbar() {
             <div>BORROW APP</div>
             </Link>
             {/* Sidebar Toggle */}
-            <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
+            <button className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" >
               <FontAwesomeIcon icon={faBars} />
             </button>
             {/* Navbar Search */}

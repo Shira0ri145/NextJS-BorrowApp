@@ -64,7 +64,7 @@ const ItemsDataTable = () => {
 };
 
   return (
-    <div classNameName="sb-nav-fixed">
+    <div className="sb-nav-fixed">
       <Head>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
@@ -156,9 +156,7 @@ const ItemsDataTable = () => {
           {/* Footer */}
           <AdminFooter />
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"/>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <Script src="../scripts/datatable.js" />
+
       </div>
     </div>
   );

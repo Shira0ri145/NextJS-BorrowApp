@@ -13,7 +13,7 @@ export default function Items() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://labeq-env.eba-749v4c5r.ap-southeast-1.elasticbeanstalk.com/api/items');
+        const response = await axios.get('http://localhost:8000/api/items');
         setItems(response.data);
       } catch (error) {
         console.log(error);
@@ -25,7 +25,7 @@ export default function Items() {
   const handleSearch = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`/api/items?search=${searchTerm}`);
+      const response = await axios.get(`http://localhost:8000/api/items?search=${searchTerm}`);
       setItems(response.data);
     } catch (error) {
       console.log(error);
