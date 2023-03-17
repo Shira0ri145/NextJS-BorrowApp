@@ -46,6 +46,15 @@ export default function AdminSidebar() {
               </div>
               Item Management
             </Link>
+            <Link className="nav-link" href="/Admin/test">
+              <div className="sb-nav-link-icon">
+              <FontAwesomeIcon 
+              icon={faTools}
+              width ="20px"
+              />
+              </div>
+              Test BUG
+            </Link>
           </div>
         </div>
         <div className="sb-sidenav-footer">

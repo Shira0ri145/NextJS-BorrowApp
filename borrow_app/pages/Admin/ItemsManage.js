@@ -29,7 +29,7 @@ export default function ItemsManage() {
 
   useEffect(()=>{ 
     if (typeof window !== "undefined") {
-      ItemsDataTable();
+      
       
     }
     fetchData();
@@ -49,19 +49,7 @@ export default function ItemsManage() {
     });
 };
 
-const ItemsDataTable = () => {
-  const dataTable = $("#itemsdatatable");
-  
-  // destroy old DataTable bode create new datatable
-  if ($.fn.DataTable.isDataTable(dataTable)) {
-    dataTable.DataTable().destroy();
-  }
-  
-  // create new DataTable
-  dataTable.DataTable({
-    responsive: true,
-  });
-};
+
 
   return (
     <div className="sb-nav-fixed">
