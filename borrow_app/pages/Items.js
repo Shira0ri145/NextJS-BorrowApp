@@ -11,12 +11,18 @@ export default function Items() {
   const [items, setItems] = useState([]);
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/items');
-      setItems(response.data);
+      axios.get('http://localhost:8000/api/items/')
+      .then(response => {
+        console.log(response);
+        setItems(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
     } catch (error) {
       console.log(error);
     }
-  };
+  }
   useEffect(() => {
     fetchData();
   }, []);
@@ -53,16 +59,16 @@ export default function Items() {
 
         {/* Section for post */}
         <section id="posts">
-          {items.map((item) => (
-            <div className={styles.post} key={item._id}>
+          {items.map((item,index) => (
+            <div className={styles.post} key={index}>
               <div className={styles.imgBlogOne}>
                 <Image alt="" src={item.imageUrl} width={200} height={200} />
               </div>
               <div className={styles.textBlogPost}>
                 <h3>{item.name}</h3>
-                <p className={styles.postAuthor}>Status: {item.status}</p>
-                <p className={styles.postDate}>Category: {item.category}</p>
-                <p className={styles.postExcerpt}>Description: {item.description}</p>
+                <p className={styles.postAuthor}>Status: {item.item_borrow_status}</p>
+                <p className={styles.postDate}>Category: {item.item_category}</p>
+                <p className={styles.postExcerpt}>Description: {item.item_description}</p>
                 <a href="">
                   <button className={styles.readMoreBtn}>More Detail</button>
                 </a>
@@ -73,7 +79,7 @@ export default function Items() {
         
 
         {/* For example in section ^^ : examplay /#posts*/}
-        <div className={styles.post}>
+        {/* <div className={styles.post}>
             <div className={styles.imgBlogTwo}>
                 <Image alt="" src="/items/Oscil.png" width={200} height={200}/>
             </div>
@@ -86,7 +92,7 @@ export default function Items() {
                 <button className={styles.readMoreBtn}>More Detail</button>
               </a>
             </div>
-          </div>
+          </div> */}
       </main>
       <UserFooter />
     </>
