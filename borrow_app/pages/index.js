@@ -1,7 +1,6 @@
 import UserFooter from '@/components/UserFooter'
 import Link from "next/link"
 import styles from "@/styles/Home.module.css"
-import react from 'react'
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -26,6 +25,7 @@ export default function Home() {
     .then((response) => {
       window.localStorage.setItem('role', `${response.data.role}`);
       window.localStorage.setItem('token', `${response.data.token}`);
+      window.localStorage.setItem('u_id', `${response.data.u_id}`);
       if(response.data.role === 'Admin'){
         router.push("/Admin")
       }else if(response.data.role === 'User'){

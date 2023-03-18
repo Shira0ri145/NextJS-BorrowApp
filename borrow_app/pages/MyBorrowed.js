@@ -4,7 +4,6 @@ import styles from "@/styles/MyBorrowed.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios"; // or import your MongoDB library here
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import DataTable from 'react-data-table-component';
 
 export default function MyBorrowed() {
@@ -12,11 +11,11 @@ export default function MyBorrowed() {
     const [filteredItems, setFilteredItems] = useState([]);
 
     const [items, setItems] = useState([]);
-    const fetchData = async () => {
+    const fetchData = async (uid,token) => {
       try {
       axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/update-expire/`)
       .then(res =>{
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/borrowed/`)
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/borrowed/${uid}/`)
         .then(response => {
           // console.log(response);
           setItems(response.data);
@@ -37,11 +36,12 @@ export default function MyBorrowed() {
  
     useEffect(() => {
       let role = window.localStorage.getItem('role');
+      let u_id = window.localStorage.getItem('u_id');
       let token = window.localStorage.getItem('token');
       if(!role || !token){
         router.push('/')
       }
-      fetchData();
+      fetchData(u_id,token);
     }, []);
 
     useEffect(() => {
