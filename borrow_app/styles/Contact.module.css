@@ -1,79 +1,37 @@
-   
-  .Aboutus {
-    max-width: 800px;
-    margin: 140px auto;
-    padding: 20px;
-    
-  }
-  
-  .blog-title {
-    margin-top: 50px;
-    font-size: 36px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .blog-description {
-    font-size: 18px;
-    margin-bottom: 30px;
-  }
-  
-  #posts {
-    display: flex;
-    flex-wrap: wrap;
-  }
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 130px auto;
+}
 
 
-  
-  .post {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-	box-shadow: 5px 1px 15px 2px #ccc;
-    padding: 30px;
-	
-  }
-  
-  .post:last-child {
-    margin-right: 0;
-  }
-  
-  .post img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-  
-  
-  .post h3 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .post-author, .post-date {
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
-  
-  .post-excerpt {
-    font-size: 16px;
-    margin-bottom: 15px;
-  }
-  
-  .read-more-btn {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .read-more-btn:hover {
-    background-color: #3e8e41;
-  }
-  
+.logo {
+  flex-basis: 20%;
+}
 
-  
+.logo img {
+  max-width: 100%;
+}
+
+.address {
+  flex-basis: 70%;
+}
+
+.address address {
+  font-style: normal;
+  margin: 20px 0px 20px;
+}
+
+.address a {
+  margin-right: 10px;
+}
+
+.new-image-container {
+  flex-basis: 10%;
+}
+
+.new-image-container img {
+  max-width: 100%;
+}
