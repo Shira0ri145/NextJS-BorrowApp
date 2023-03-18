@@ -49,6 +49,7 @@ export default function UsersManage() {
       router.push('/')
     }
     fetchData();
+    
   }, []);
 
   useEffect(() => {
@@ -150,12 +151,9 @@ const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 const handleSidebarToggle = () => {
   setIsSidebarOpen(!isSidebarOpen);
   
-};
-
-const ReloadWhenToggle = () => {
-  location.reload()
   
 };
+
 
 
   return (

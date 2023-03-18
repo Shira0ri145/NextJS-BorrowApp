@@ -1,6 +1,6 @@
 // Import the FontAwesomeIcon component
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRouter } from "react";
 // import the icons you need
 import {
   faUser,
@@ -16,9 +16,12 @@ import styles from "@/styles/AdminNav.module.css"
 export default function AdminSidebar() {
 
 const ReloadWhenToggle = () => {
+  setTimeout(() => {
   location.reload()
+}, 200);
   
 };
+
   return (
     <>
     <div id="layoutSidenav_nav">
@@ -27,7 +30,7 @@ const ReloadWhenToggle = () => {
           <div className="sb-sidenav-menu">
             <div className="nav">
               <div className="sb-sidenav-menu-heading">Management</div>
-              <Link className="nav-link" href="/Admin/UsersManage">
+              <Link onClick={ReloadWhenToggle} className="nav-link" href="/Admin/UsersManage">
                 <div className="sb-nav-link-icon">
                   <FontAwesomeIcon
                     icon={faUser}
@@ -36,7 +39,7 @@ const ReloadWhenToggle = () => {
                 </div>
                 Users Management
               </Link>
-              <Link className="nav-link" href="/Admin/BorrowedInfo">
+              <Link onClick={ReloadWhenToggle} className="nav-link" href="/Admin/BorrowedInfo">
                 <div className="sb-nav-link-icon">
                   <FontAwesomeIcon
                     icon={faInfo}
@@ -45,7 +48,7 @@ const ReloadWhenToggle = () => {
                 </div>
                 Borrowing Information
               </Link>
-              <Link className="nav-link" href="/Admin/ItemsManage">
+              <Link onClick={ReloadWhenToggle} className="nav-link" href="/Admin/ItemsManage">
                 <div className="sb-nav-link-icon">
                   <FontAwesomeIcon
                     icon={faTools}

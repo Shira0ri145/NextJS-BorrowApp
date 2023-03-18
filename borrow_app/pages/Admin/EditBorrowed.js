@@ -105,6 +105,13 @@ export default function EditBorrowed(params) {
     setIsSidebarOpen(!isSidebarOpen);
     
   };
+
+  const ReloadWhenToggle = () => {
+    setTimeout(() => {
+    location.reload()
+  }, 200);
+  };
+
   return (
     <div className="sb-nav-fixed">
       <Head>
@@ -225,7 +232,7 @@ export default function EditBorrowed(params) {
                             >
                               Edit Borrow-Item
                             </button>
-                            <Link href={"/Admin/BorrowedInfo"}
+                            <Link onClick={ReloadWhenToggle} href={"/Admin/BorrowedInfo"}
                               className="btn btn-danger"
                             >
                               Cancel

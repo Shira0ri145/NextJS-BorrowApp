@@ -113,6 +113,11 @@ const handleSidebarToggle = () => {
   setIsSidebarOpen(!isSidebarOpen);
   
 };
+const ReloadWhenToggle = () => {
+  setTimeout(() => {
+  location.reload()
+}, 200);
+};
   
   return (
     <div className="sb-nav-fixed">
@@ -303,7 +308,7 @@ const handleSidebarToggle = () => {
                             >
                               Add Item
                             </button>
-                            <Link href={"/Admin/ItemsManage"}
+                            <Link onClick={ReloadWhenToggle} href={"/Admin/ItemsManage"}
                               className="btn btn-danger"
                             >
                               Cancel

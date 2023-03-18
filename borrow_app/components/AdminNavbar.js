@@ -9,6 +9,12 @@ import Link from "next/link";
 import { useState, useEffect } from 'react';
 
 export default function AdminNavbar() {
+  const ReloadWhenToggle = () => {
+    setTimeout(() => {
+    location.reload()
+  }, 200);
+    
+  };
   
   
     return (

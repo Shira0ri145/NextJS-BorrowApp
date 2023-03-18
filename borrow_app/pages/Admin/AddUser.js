@@ -73,6 +73,11 @@ const handleSidebarToggle = () => {
   setIsSidebarOpen(!isSidebarOpen);
   
 };
+const ReloadWhenToggle = () => {
+  setTimeout(() => {
+  location.reload()
+}, 200);
+};
   
 
 
@@ -217,13 +222,14 @@ const handleSidebarToggle = () => {
                           
                           <div className="col-md-12 mb-3">
                             <button
+                            
                               type="submit"
                               name="add_user"
                               className="btn btn-primary"
                             >
                               Add User/Admin
                             </button>
-                            <Link href={"/Admin"}
+                            <Link onClick={ReloadWhenToggle} href={"/Admin"}
                               className="btn btn-danger"
                               
                             >

@@ -101,6 +101,11 @@ const handleSidebarToggle = () => {
   
 };
 
+const ReloadWhenToggle = () => {
+  setTimeout(() => {
+  location.reload()
+}, 200);
+};
     return(
         <div class="sb-nav-fixed">
       <Head>
@@ -245,15 +250,17 @@ const handleSidebarToggle = () => {
                               type="submit"
                               name="add_user"
                               class="btn btn-success"
+                              
                             >
                               Update User/Admin
                             </button>
-                            <Link href={"/Admin"}
+                            <Link  href={"/Admin"}
                               type="submit"
                               name="cancel"
                               class="btn btn-danger"
                               onClick={()=>{
                                 router.push('/Admin')
+                                
                               }}
                             >
                               Cancel
