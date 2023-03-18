@@ -8,6 +8,7 @@ import { useState,useEffect } from "react";
 import { useRouter } from "next/router";
 import DataTable from 'react-data-table-component';
 
+
 export default function ItemManage() {
   const router = useRouter()
   const [Item,setItem] = useState([]);

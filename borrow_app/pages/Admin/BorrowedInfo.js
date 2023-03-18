@@ -8,6 +8,7 @@ import {  useEffect,useState } from "react";
 import { useRouter } from "next/router";
 import DataTable from 'react-data-table-component';
 
+
 export default function BorrowedInfo() {
   const [BorrowedItem,setBorrowedItem] = useState([])
   const [search,setSearch] = useState("");
@@ -99,30 +100,31 @@ const columns = [
   // },
   {
     name : "BORROW TIME",
-    cell: row => (
-      <span style={{ fontSize: "16px" }}>
-        {(new Date(row.b_borrow_time)).toLocaleString('en-US', {
-          dateStyle: 'medium',
-            timeStyle: 'medium',
-            hour12: false,
-        })}
-      </span>
-    ),
-    sortable: true,
-    sortAccessor: row => row.b_borrow_status,
+    selector: row => (new Date(row.b_borrow_time)).toLocaleString('en-US', {
+      dateStyle: 'medium',
+        timeStyle: 'medium',
+        hour12: false,
+    }),
+      sortable: true,
+      sortField: "b_borrow_time",
+      style: {
+        fontSize: "17px",
+
+      }
   },
   {
     name: "RETURN TIME",
-    cell: row => (
-      <span style={{ fontSize: "16px" }}>
-        {(new Date(row.b_return_time)).toLocaleString('en-US', {
-          dateStyle: 'medium',
-            timeStyle: 'medium',
-            hour12: false,
-        })}
-      </span>
-    ),
-    sortable: true,
+    selector: row => (new Date(row.b_return_time)).toLocaleString('en-US', {
+      dateStyle: 'medium',
+        timeStyle: 'medium',
+        hour12: false,
+    }),
+      sortable: true,
+      sortField: "b_return_time",
+      style: {
+        fontSize: "17px",
+
+      }
   },
   {
     name : "LOCATION",
@@ -185,10 +187,9 @@ const columns = [
 
               {/* sub-header */}
               <ol className="breadcrumb mb-4">
-                <li className="breadcrumb-item active">
-                  Dashboard / Borrowing Infomation
-                </li>
-              </ol>
+                            <li className="breadcrumb-item"><Link href="/Admin"> Dashboard</Link></li>
+                            <li className="breadcrumb-item active">Borrowing Infomation</li>
+                        </ol>
               {/* sub-header */}
 
               {/* card */}

@@ -13,6 +13,16 @@ import { useState,useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
+// Import the FontAwesomeIcon component
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// import the icons you need
+import {
+  faUser,
+  faInfo,
+  faTools
+
+} from "@fortawesome/free-solid-svg-icons";
 
 
 export default function EditBorrowed(params) {

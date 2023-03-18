@@ -5,9 +5,12 @@ import { useState, useEffect } from "react";
 import axios from "axios"; // or import your MongoDB library here
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import DataTable from 'react-data-table-component';
 
 export default function MyBorrowed() {
-    const [searchTerm, setSearchTerm] = useState("");
+    const [search, setSearch] = useState("");
+    const [filteredItems, setFilteredItems] = useState([]);
+
     const [items, setItems] = useState([]);
     const fetchData = async () => {
       try {
@@ -40,16 +43,39 @@ export default function MyBorrowed() {
       }
       fetchData();
     }, []);
+
+    useEffect(() => {
+      const result = items.filter(items=> {
+        return items.name.toLowerCase().match(search.toLowerCase());
+      })
   
-    const handleSearch = async (event) => {
-      event.preventDefault();
-      try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/items?search=${searchTerm}`);
-        setItems(response.data);
-      } catch (error) {
-        console.log(error);
+      setFilteredItems(result);
+    }, [search])
+
+    const columns = [
+      {
+        name: "ITEM TABLE",
+        cell: row => (
+          <section id="posts">
+              <div className={styles.post}>
+                <div className={styles.imgBlogOne}>
+                  <img alt="" src={row.imageUrl} width={200} height={200} />
+                </div>
+                <div className={styles.textBlogPost}>
+                  <h3>{row.name}</h3>
+                  <p className={styles.postAuthor}>Status: {row.item_borrow_status}</p>
+                  <p className={styles.postDate}>Category: {row.item_category}</p>
+                  <p className={styles.postExcerpt}>Description: {row.item_description}</p>
+                  <Link href="/Contact">
+                    <button className={styles.readMoreBtn}>Contact</button>
+                  </Link>
+                </div>
+              </div>
+          </section>
+        )
       }
-    };
+    ];
+    
 
     return (
       <>
@@ -57,37 +83,12 @@ export default function MyBorrowed() {
         <main className={styles.blogMain}>
           <h2 className={styles.blogTitle}>MY BORROWED</h2>
           
-          <form className={styles.searchBar} onSubmit={handleSearch}>
-            <input
-              type="text"
-              placeholder="Search for items..."
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-            />
-            <button className={styles.searchBtn} type="submit">
-              Search
-            </button>
-          </form>
+          
   
           {/* Section for post */}
-          <section id="posts">
-            {items.map((item,index) => (
-              <div className={styles.post} key={index}>
-                <div className={styles.imgBlogOne}>
-                  <Image alt="" src={item.imageUrl} width={200} height={200} />
-                </div>
-                <div className={styles.textBlogPost}>
-                  <h3>{item.name}</h3>
-                  <p className={styles.postAuthor}>Status: {item.item_borrow_status}</p>
-                  <p className={styles.postDate}>Category: {item.item_category}</p>
-                  <p className={styles.postExcerpt}>Description: {item.item_description}</p>
-                  <a href="">
-                    <button className={styles.readMoreBtn}>More Detail</button>
-                  </a>
-                </div>
-              </div>
-            ))}
-          </section>
+          <DataTable>
+          
+          </DataTable>
           
   
           {/* For example in section ^^ : examplay /#posts

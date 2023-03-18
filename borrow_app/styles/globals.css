@@ -2,6 +2,9 @@
 input[type='file'] {
   display: none;
 }
+.searchcenter {
+  text-align: center;
+}
 
 input[type='file'] + label {
   cursor: pointer;

@@ -163,10 +163,9 @@ const columns = [
 
               {/* sub-header */}
               <ol className="breadcrumb mb-4">
-                <li className="breadcrumb-item active">
-                  Dashboard / User Management
-                </li>
-              </ol>
+                            <li className="breadcrumb-item"><Link href="/Admin"> Dashboard</Link></li>
+                            <li className="breadcrumb-item active">User Management</li>
+                        </ol>
               {/* sub-header */}
               {/* card */}
               <div className="row">
