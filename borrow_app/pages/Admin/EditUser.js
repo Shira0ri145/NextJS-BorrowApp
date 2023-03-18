@@ -205,7 +205,7 @@ const ReloadWhenToggle = () => {
                           <div class="col-md-6 mb-3">
                             <label for="">Telephone</label>
                             <input
-                              type="text"
+                              type="tel"
                               name="telephone"
                               class="form-control"
                               value={u_tel}

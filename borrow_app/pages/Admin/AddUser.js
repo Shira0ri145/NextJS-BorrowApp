@@ -181,7 +181,7 @@ const ReloadWhenToggle = () => {
                           <div className="col-md-6 mb-3">
                             <label htmlFor="">Telephone</label>
                             <input
-                              type="text"
+                              type="tel"
                               name="telephone"
                               maxLength={10}
                               className="form-control"
