@@ -1,21 +1,29 @@
 // Import the FontAwesomeIcon component
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { useEffect, useState } from "react";
 // import the icons you need
 import {
   faUser,
   faInfo,
-  faTools
+  faTools,
+  faBars
 
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Head from "next/head";
+import styles from "@/styles/AdminNav.module.css"
 
 export default function AdminSidebar() {
+
+const ReloadWhenToggle = () => {
+  location.reload()
+  
+};
   return (
     <>
     <div id="layoutSidenav_nav">
-        <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+      
+        <nav className="bg-dark sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
           <div className="sb-sidenav-menu">
             <div className="nav">
               <div className="sb-sidenav-menu-heading">Management</div>

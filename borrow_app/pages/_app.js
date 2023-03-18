@@ -13,10 +13,11 @@ config.autoAddCss = false;
 export default function App({ Component, pageProps }) {
   return (
     <>
+    
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossOrigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossOrigin="anonymous"></script>
-
+    <script src="../scripts/side_controll.js"/>
   <Component {...pageProps} /> 
     </>
   )

@@ -2,13 +2,6 @@ import AdminFooter from "@/components/AdminFooter";
 import AdminNavbar from "@/components/AdminNavbar";
 import AdminSidebar from "@/components/AdminSidebar";
 import Head from "next/head";
-// Import the FontAwesomeIcon component
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import the icons you need
-import {
-  faClock
-} from "@fortawesome/free-solid-svg-icons";
-
 import { useState,useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -20,7 +13,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faInfo,
-  faTools
+  faTools,
+  faClock,
+  faBars
 
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -103,17 +98,59 @@ export default function EditBorrowed(params) {
   const handleb_noteChange = (e) =>{
     setb_note(e.target.value)
   }
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+    
+  };
   return (
     <div className="sb-nav-fixed">
       <Head>
         <title>Edit Borrow-Item</title>
       </Head>
       {/* Top navbar */}
-      <AdminNavbar />
+      <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            {/* Navbar Brand */}
+            <Link href="/Admin/UsersManage" className="navbar-brand ps-3">
+            <div>BORROW APP</div>
+            </Link>
+            {/* Sidebar Toggle */}
+            <button onClick={handleSidebarToggle} className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" >
+              <FontAwesomeIcon icon={faBars} />
+            </button>
+            {/* Navbar Search */}
+            <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            </form>
+            {/* Navbar */}
+            <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Options
+                    </a>
+                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                      <li>
+                        <Link className="dropdown-item" href="/Items">
+                        <div >User view</div>
+                        </Link>
+                      </li>
+                      <li><hr className="dropdown-divider" /></li>
+                      <li>
+                        <Link className="dropdown-item" onClick={(e)=>{
+                             window.localStorage.clear();
+                        }} href="/">
+                        <div >Logout</div>
+                        </Link>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
 
       <div id="layoutSidenav">
         {/* Sidenav */}
-        <AdminSidebar />
+        <AdminSidebar isOpen={isSidebarOpen} />
         <div id="layoutSidenav_content">
           <main>
             {/* Dashboard Content */}

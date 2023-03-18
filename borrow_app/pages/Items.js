@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import axios from "axios"; // or import your MongoDB library here
 import { useRouter } from 'next/router';
 import DataTable from 'react-data-table-component';
+import Link from 'next/link';
 
 export default function Items() {
   const router = useRouter()
@@ -69,9 +70,9 @@ const columns = [
                 <p className={styles.postAuthor}>Status: {row.item_status}</p>
                 <p className={styles.postDate}>Category: {row.item_category}</p>
                 <p className={styles.postExcerpt}>Description: {row.item_description}</p>
-                <a href="">
-                  <button className={styles.readMoreBtn}>Contact</button>
-                </a>
+                <Link href="/Contact">
+                    <button className={styles.readMoreBtn}>Contact</button>
+                  </Link>
               </div>
             </div>
           
