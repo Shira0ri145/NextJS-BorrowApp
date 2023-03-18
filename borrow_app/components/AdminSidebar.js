@@ -15,12 +15,6 @@ import styles from "@/styles/AdminNav.module.css"
 
 export default function AdminSidebar() {
 
-const ReloadWhenToggle = () => {
-  setTimeout(() => {
-  location.reload()
-}, 200);
-  
-};
 
   return (
     <>
@@ -30,7 +24,7 @@ const ReloadWhenToggle = () => {
           <div className="sb-sidenav-menu">
             <div className="nav">
               <div className="sb-sidenav-menu-heading">Management</div>
-              <Link onClick={ReloadWhenToggle} className="nav-link" href="/Admin/UsersManage">
+              <Link  className="nav-link" href="/Admin/UsersManage">
                 <div className="sb-nav-link-icon">
                   <FontAwesomeIcon
                     icon={faUser}
@@ -39,7 +33,7 @@ const ReloadWhenToggle = () => {
                 </div>
                 Users Management
               </Link>
-              <Link onClick={ReloadWhenToggle} className="nav-link" href="/Admin/BorrowedInfo">
+              <Link  className="nav-link" href="/Admin/BorrowedInfo">
                 <div className="sb-nav-link-icon">
                   <FontAwesomeIcon
                     icon={faInfo}
@@ -48,7 +42,7 @@ const ReloadWhenToggle = () => {
                 </div>
                 Borrowing Information
               </Link>
-              <Link onClick={ReloadWhenToggle} className="nav-link" href="/Admin/ItemsManage">
+              <Link className="nav-link" href="/Admin/ItemsManage">
                 <div className="sb-nav-link-icon">
                   <FontAwesomeIcon
                     icon={faTools}
