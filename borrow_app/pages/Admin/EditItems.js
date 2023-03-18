@@ -116,7 +116,9 @@ const fetchData = async(user_id) =>{
   const handleOnSubmit = (e) =>{
     e.preventDefault();
     let data = new FormData();
-    data.append('file',images[0],images[0].name)
+    if(images[0] && images[0].name){
+      data.append('file',images[0],images[0].name)
+    }
     data.append('item_id',item_id)
     data.append('item_id_type',item_id_type)
     data.append('item_name',item_name)
