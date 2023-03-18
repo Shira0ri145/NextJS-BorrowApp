@@ -109,8 +109,6 @@ export default function MyBorrowed() {
           subHeaderAlign="center">
           
           </DataTable>
-          
-  
           {/* For example in section ^^ : examplay /#posts
           <div className={styles.post}>
               <div className={styles.imgBlogTwo}>
