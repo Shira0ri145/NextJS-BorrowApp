@@ -86,7 +86,24 @@ export default function MyBorrowed() {
           
   
           {/* Section for post */}
-          <DataTable>
+          <DataTable
+          columns={columns}
+          data={filteredItems}
+          pagination
+          fixedHeader
+          noTableHead
+          fixedHeaderScrollHeight="1500px"
+          subHeader
+          subHeaderComponent={
+            <input 
+              type="text" 
+              placeholder="Search by Items name" 
+              className="w-50 form-control searchcenter"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              ></input>
+          }
+          subHeaderAlign="center">
           
           </DataTable>
           

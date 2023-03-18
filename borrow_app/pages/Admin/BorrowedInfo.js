@@ -69,7 +69,7 @@ export default function BorrowedInfo() {
 
 const columns = [
   {
-    name : "ITEM ID",
+    name : "BORROW INFO ID",
     selector: row => row.b_id,
       sortable: true,
       sortField: "b_id",
