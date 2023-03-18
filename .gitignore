@@ -1,3 +1,4 @@
 # mac problem
 .DS_Store
 
+.env*
