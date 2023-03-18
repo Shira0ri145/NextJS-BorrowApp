@@ -11,14 +11,21 @@ export default function MyBorrowed() {
     const [items, setItems] = useState([]);
     const fetchData = async () => {
       try {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/update-expire/`)
+      .then(res =>{
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/borrowed/`)
         .then(response => {
-          console.log(response);
+          // console.log(response);
           setItems(response.data);
         })
         .catch(error => {
           console.log(error);
         });
+      }
+      ).catch(error => {
+        console.log(error);
+      });
+
       } catch (error) {
         console.log(error);
       }

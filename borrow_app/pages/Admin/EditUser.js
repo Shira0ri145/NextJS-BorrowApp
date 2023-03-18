@@ -81,7 +81,7 @@ export default function EditUser(params) {
     ,u_email:u_email,u_password:u_password,u_tel:u_tel,u_department:u_department,u_major:u_major
     ,u_privilege:u_privilege
     }).then((Response)=>{
-      console.log(Response)
+      // console.log(Response)
       router.push('/Admin')
     }).catch((error)=>{
       console.log(error)

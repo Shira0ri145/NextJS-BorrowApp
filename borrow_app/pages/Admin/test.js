@@ -18,7 +18,7 @@ export default function test() {
     try {
       axios.get('http://localhost:8000/api/dashboard/item-info/')
       .then(response => {
-        console.log(response);
+        // console.log(response);
         setItem(response.data);
         setFilteredItems(response.data);
       })
@@ -42,11 +42,11 @@ export default function test() {
     setFilteredItems(result);
   }, [search])
 
-  const handleDelete = (item_idv) => {
+  const handleDelete = (item_id) => {
     axios
-      .delete(`http://localhost:8000/api/dashboard/item-info/delete/${item_idv}/`)
+      .delete(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/item-info/delete/${item_id}/`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         fetchData();
       })
       .catch((error) => {

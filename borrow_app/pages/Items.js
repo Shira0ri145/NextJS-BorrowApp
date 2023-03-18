@@ -4,31 +4,40 @@ import styles from "@/styles/Items.module.css";
 import { useState, useEffect } from "react";
 import axios from "axios"; // or import your MongoDB library here
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 
 export default function Items() {
+  const router = useRouter()
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
+
   const fetchData = async () => {
     try {
-      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/items/`)
-      .then(response => {
-        console.log(response);
-        setItems(response.data);
-      })
-      .catch(error => {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/update-expire/`)
+      .then(res =>{
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/items/`)
+        .then(response => {
+          console.log(response);
+          setItems(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
+      ).catch(error => {
         console.log(error);
       });
     } catch (error) {
       console.log(error);
     }
   }
+  
   useEffect(() => {
     let role = window.localStorage.getItem('role');
     let token = window.localStorage.getItem('token');
     if(!role || !token){
         router.push('/')
     }
+
     fetchData();
   }, []);
 
@@ -67,11 +76,11 @@ export default function Items() {
           {items.map((item,index) => (
             <div className={styles.post} key={index}>
               <div className={styles.imgBlogOne}>
-                <Image alt="" src={item.imageUrl} width={200} height={200} />
+                <img alt="" src={item.item_img_url} width={200} height={200} />
               </div>
               <div className={styles.textBlogPost}>
-                <h3>{item.name}</h3>
-                <p className={styles.postAuthor}>Status: {item.item_borrow_status}</p>
+                <h3>{item.item_name}</h3>
+                <p className={styles.postAuthor}>Status: {item.item_status}</p>
                 <p className={styles.postDate}>Category: {item.item_category}</p>
                 <p className={styles.postExcerpt}>Description: {item.item_description}</p>
                 <a href="">

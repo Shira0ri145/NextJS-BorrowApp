@@ -3,7 +3,6 @@ import AdminNavbar from "@/components/AdminNavbar";
 import AdminSidebar from "@/components/AdminSidebar";
 import Head from "next/head";
 import { useState,useEffect } from "react";
-import Image from 'next/image';
 import axios from "axios";
 import Link from "next/link";
 import FormData from 'form-data'
@@ -31,10 +30,18 @@ export default function AddItems(params) {
   const [item_description,setitem_description] = useState("")
   const [item_note,setitem_note] = useState("")
 
+  const [item_img_url, setImagesURLs] = useState([]);
 
+  useEffect(() => {
+    if (images.length < 1) return;
+    const newImageUrls = [];
+    images.forEach(image => newImageUrls.push(URL.createObjectURL(image)))
+    setImagesURLs(newImageUrls)
+  }, [images]); 
+  
   const handleitem_ImageChange = (e) =>{
     setImages([e.target.files[0]])
-    console.log([e.target.files[0]])
+    // console.log([e.target.files[0]])
   }
   const handleitem_idChange = (e) =>{
     setitem_id(e.target.value)
@@ -69,11 +76,22 @@ export default function AddItems(params) {
   const handleOnSubmit = (e) =>{
     e.preventDefault();
     let data = new FormData();
-    
+    data.append('file',images[0],images[0].name)
+    data.append('item_id',item_id)
+    data.append('item_id_type',item_id_type)
+    data.append('item_name',item_name)
+    data.append('item_category',item_category)
+    data.append('item_department',item_department)
+    data.append('item_major',item_major)
+    data.append('item_status',item_status)
+    data.append('item_borrow_status',item_borrow_status)
+    data.append('item_description',item_description)
+    data.append('item_note',item_note )
     axios.post(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/item-info/add/`,
-    {item_id,item_id_type,item_name,item_category,item_department,item_major,item_status,item_borrow_status,item_description,item_note })
+    data
+    )
     .then((Response)=>{
-      console.log(Response)
+      // console.log(Response)
       router.push('/Admin/ItemsManage')
     })
     .catch((error)=>{
@@ -223,7 +241,7 @@ export default function AddItems(params) {
                             </div>
                             {/* Show Picture when select and save picture file in public/items/ */}
                             <div>
-                            { item_img_url.map(imageSrc => <Image src={imageSrc} alt="" width={300} height={300}></Image>) }
+                            <img src={item_img_url} alt="" width={300} height={300}></img> 
                             </div>
                           </div>
 

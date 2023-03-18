@@ -7,7 +7,18 @@ import {
   faBars
 } from "@fortawesome/free-solid-svg-icons";
 
+import { useState,useEffect } from "react";
+import { useRouter } from "next/router";
+
+
 export default function UserNavbar() {
+    const router = useRouter();
+    const [role,setRole] = useState("");
+    useEffect(() => {
+        if(router.isReady){
+            setRole(window.localStorage.getItem('role'))
+         }
+      }, [router.isReady]);
     return (
         <>
         <Head>
@@ -24,7 +35,11 @@ export default function UserNavbar() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarResponsive" role="tablist">
                     <ul className="navbar-nav ms-auto nav-pills">
-                    <li className="nav-item mx-0 mx-lg-1"><Link className="nav-link py-3 px-0 px-lg-3 rounded"  href="/Admin">Dashboard</Link></li>
+                        { (role==='Admin')
+                        ? <li className="nav-item mx-0 mx-lg-1"><Link className="nav-link py-3 px-0 px-lg-3 rounded"  href="/Admin">Dashboard</Link></li>
+                        : <></>
+                        }
+
                         <li className="nav-item mx-0 mx-lg-1"><Link className="nav-link py-3 px-0 px-lg-3 rounded"  href="/Items">Items</Link></li>
                         <li className="nav-item mx-0 mx-lg-1"><Link className="nav-link py-3 px-0 px-lg-3 rounded" href="/MyBorrowed">My Borrowed</Link></li>
                         <li className="nav-item mx-0 mx-lg-1"><Link className="nav-link py-3 px-0 px-lg-3 rounded" href="/Contact">Contact</Link></li>

@@ -6,7 +6,6 @@ import Link from "next/link";
 import axios from "axios";
 import { useState,useEffect } from "react";
 import { useRouter } from "next/router";
-import Script from "next/script";
 import DataTable from 'react-data-table-component';
 
 export default function ItemManage() {
@@ -17,15 +16,23 @@ export default function ItemManage() {
 
   const fetchData = async () => {
     try {
-      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/item-info/`)
-      .then(response => {
-        console.log(response);
-        setItem(response.data);
-        setFilteredItems(response.data);
-      })
-      .catch(error => {
+     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/update-expire/`)
+      .then(res =>{ 
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/item-info/`)
+        .then(response => {
+          // console.log(response);
+          setItem(response.data);
+          setFilteredItems(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
+      ).catch(error => {
         console.log(error);
       });
+      
+
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +59,7 @@ export default function ItemManage() {
     axios
       .delete(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/item-info/delete/${item_id}/`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         fetchData();
       })
       .catch((error) => {

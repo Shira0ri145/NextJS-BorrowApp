@@ -28,7 +28,7 @@ export default function Home() {
       if(response.data.role === 'Admin'){
         router.push("/Admin")
       }else if(response.data.role === 'User'){
-        router.push('/MyBorrowed')
+        router.push('/Items')
       }
     })
     .catch((error) => {

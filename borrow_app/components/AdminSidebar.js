@@ -8,7 +8,6 @@ import {
   faTools
   
 } from "@fortawesome/free-solid-svg-icons";
-import Script from "next/script";
 import Link from "next/link";
 
 export default function AdminSidebar() {
@@ -46,7 +45,7 @@ export default function AdminSidebar() {
               </div>
               Item Management
             </Link>
-            <Link className="nav-link" href="/Admin/test">
+            {/* <Link className="nav-link" href="/Admin/test">
               <div className="sb-nav-link-icon">
               <FontAwesomeIcon 
               icon={faTools}
@@ -54,7 +53,7 @@ export default function AdminSidebar() {
               />
               </div>
               Test BUG
-            </Link>
+            </Link> */}
           </div>
         </div>
         <div className="sb-sidenav-footer">

@@ -68,7 +68,7 @@ export default function EditBorrowed(params) {
       b_return_time:new Date(b_return_time).toISOString().slice(0, 19).replace('T', ' '),
       b_location,b_note })
     .then((Response)=>{
-      console.log(Response)
+      // console.log(Response)
       router.push('/Admin/BorrowedInfo')
     })
     .catch((error)=>{

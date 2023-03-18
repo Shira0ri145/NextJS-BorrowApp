@@ -15,15 +15,22 @@ export default function BorrowedInfo() {
 
   const fetchData = async () => {
     try {
-      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/borrowing-info/`)
-      .then(response => {
-        console.log(response);
-        setBorrowedItem(response.data);
-        setFilteredItems(response.data);
-      })
-      .catch(error => {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/update-expire/`)
+      .then(res =>{
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/borrowing-info/`)
+        .then(response => {
+          // console.log(response);
+          setBorrowedItem(response.data);
+          setFilteredItems(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });  
+      }
+      ).catch(error => {
         console.log(error);
       });
+
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +58,7 @@ export default function BorrowedInfo() {
   const handleDelelte = (b_id) => {
     axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/borrowing-info/delete/${parseInt(b_id)}/`)
     .then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       fetchData()
     })
     .catch((error) => {

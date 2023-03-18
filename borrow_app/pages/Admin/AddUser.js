@@ -53,7 +53,7 @@ export default function AddUser(params) {
     axios.post(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/user-management/add/`,
     { u_name,u_email,u_password,u_tel:u_tel,u_department:parseInt(u_department),u_major:parseInt(u_major),u_privilege:parseInt(u_privilege)})
     .then((Response)=>{
-      console.log(Response)
+      // console.log(Response)
       router.push('/Admin')
     })
     .catch((error)=>{

@@ -15,15 +15,22 @@ export default function UsersManage() {
   
   const fetchData = async () => {
     try {
-      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/user-management/`)
-      .then(response => {
-        // console.log(response);
-        setUsers(response.data);
-        setFilteredUsers(response.data);
-      })
-      .catch(error => {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/update-expire/`)
+      .then(res =>{
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/user-management/`)
+        .then(response => {
+          // console.log(response);
+          setUsers(response.data);
+          setFilteredUsers(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
+      ).catch(error => {
         console.log(error);
       });
+
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +58,7 @@ export default function UsersManage() {
   const handleDelelte = (u_id) => {
     axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/dashboard/user-management/delete/${parseInt(u_id)}/`)
     .then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       fetchData()
     })
     .catch((error) => {
