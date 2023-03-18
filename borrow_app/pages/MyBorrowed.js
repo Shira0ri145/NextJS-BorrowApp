@@ -5,8 +5,9 @@ import { useState, useEffect } from "react";
 import axios from "axios"; // or import your MongoDB library here
 import { useRouter } from 'next/router';
 import DataTable from 'react-data-table-component';
-
+import Link from 'next/link';
 export default function MyBorrowed() {
+    const router = useRouter()
     const [search, setSearch] = useState("");
     const [filteredItems, setFilteredItems] = useState([]);
 
@@ -17,8 +18,9 @@ export default function MyBorrowed() {
       .then(res =>{
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/borrowed/${uid}/`)
         .then(response => {
-          // console.log(response);
+          //  console.log(response);
           setItems(response.data);
+          setFilteredItems(response.data);
         })
         .catch(error => {
           console.log(error);
@@ -32,7 +34,6 @@ export default function MyBorrowed() {
         console.log(error);
       }
     }
-    const router = useRouter()
  
     useEffect(() => {
       let role = window.localStorage.getItem('role');
@@ -46,7 +47,7 @@ export default function MyBorrowed() {
 
     useEffect(() => {
       const result = items.filter(items=> {
-        return items.name.toLowerCase().match(search.toLowerCase());
+        return items.item_name.toLowerCase().match(search.toLowerCase());
       })
   
       setFilteredItems(result);
@@ -54,24 +55,26 @@ export default function MyBorrowed() {
 
     const columns = [
       {
-        name: "ITEM TABLE",
+        name: "BORROWED TABLE",
         cell: row => (
           <section id="posts">
-              <div className={styles.post}>
-                <div className={styles.imgBlogOne}>
-                  <img alt="" src={row.imageUrl} width={200} height={200} />
-                </div>
-                <div className={styles.textBlogPost}>
-                  <h3>{row.name}</h3>
-                  <p className={styles.postAuthor}>Status: {row.item_borrow_status}</p>
-                  <p className={styles.postDate}>Category: {row.item_category}</p>
-                  <p className={styles.postExcerpt}>Description: {row.item_description}</p>
-                  <Link href="/Contact">
+          
+            <div className={styles.post}>
+              <div className={styles.imgBlogOne}>
+                <img alt="" src={row.item_img_url} width={200} height={200} />
+              </div>
+              <div className={styles.textBlogPost}>
+                <h3>{row.item_name}</h3>
+                <p className={styles.postAuthor}>Status: {row.item_status}</p>
+                <p className={styles.postDate}>Category: {row.item_category}</p>
+                <p className={styles.postExcerpt}>Description: {row.item_description}</p>
+                <Link href="/Contact">
                     <button className={styles.readMoreBtn}>Contact</button>
                   </Link>
-                </div>
               </div>
-          </section>
+            </div>
+          
+        </section>
         )
       }
     ];

@@ -20,7 +20,7 @@ export default function Items() {
       .then(res =>{
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL_BACKEND}/api/items/`)
         .then(response => {
-          console.log(response);
+          // console.log(response);
           setItems(response.data);
           setFilteredItems(response.data);
         })
