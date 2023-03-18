@@ -69,57 +69,57 @@ export default function UsersManage() {
 const columns = [
   {
     name : "ID",
-    cell: row => (
-      <span style={{ fontSize: "12px", fontWeight: "bold" }}>
-        {row.u_id}
-      </span>
-    ),
-    sortable: true,
+    selector: row => row.u_id,
+      sortable: true,
+      sortField: "u_id",
+      style: {
+        fontSize: "16px",
+      }
   },
   {
     name : "NAME",
-    cell: row => (
-      <span style={{ fontSize: "16px" }}>
-        {row.u_name}
-      </span>
-    ),
-    sortable: true,
+    selector: row => row.u_name,
+      sortable: true,
+      sortField: "u_name",
+      style: {
+        fontSize: "16px",
+      }
   },
   {
     name : "TELEPHONE",
-    cell: row => (
-      <span style={{ fontSize: "16px" }}>
-        {row.u_tel}
-      </span>
-    ),
-    sortable: true,
+    selector: row => row.u_tel,
+      sortable: true,
+      sortField: "u_tel",
+      style: {
+        fontSize: "16px",
+      }
   },
   {
     name: "DEPARTMENT",
-    cell: row => (
-      <span style={{ fontSize: "16px" }}>
-        {row.u_department}
-      </span>
-    ),
-    sortable: true,
+    selector: row => row.u_department,
+      sortable: true,
+      sortField: "u_department",
+      style: {
+        fontSize: "16px",
+      }
   },
   {
     name : "MAJOR",
-    cell: row => (
-      <span style={{ fontSize: "16px" }}>
-        {row.u_major}
-      </span>
-    ),
-    sortable: true,
+    selector: row => row.u_major,
+      sortable: true,
+      sortField: "u_major",
+      style: {
+        fontSize: "16px",
+      }
   },
   {
     name : "ROLE",
-    cell: row => (
-      <span style={{ fontSize: "16px" }}>
-        {row.u_privilege}
-      </span>
-    ),
-    sortable: true,
+    selector: row => row.u_privilege,
+      sortable: true,
+      sortField: "u_privilege",
+      style: {
+        fontSize: "16px",
+      }
   },
   {
     name : "EDIT / MORE",

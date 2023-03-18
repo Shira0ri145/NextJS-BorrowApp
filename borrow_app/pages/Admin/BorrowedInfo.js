@@ -69,22 +69,34 @@ export default function BorrowedInfo() {
 const columns = [
   {
     name : "ITEM ID",
-    cell: row => (
-      <span style={{ fontSize: "12px", fontWeight: "bold" }}>
-        {row.b_item}
-      </span>
-    ),
-    sortable: true,
+    selector: row => row.b_id,
+      sortable: true,
+      sortField: "b_id",
+      style: {
+        fontSize: "15px", fontWeight: "bold"
+
+      }
   },
   {
     name : "EMAIL",
-    cell: row => (
-      <span style={{ fontSize: "16px" }}>
-        {row.b_user}
-      </span>
-    ),
-    sortable: true,
+    selector: row => row.b_user,
+      sortable: true,
+      sortField: "b_user",
+      style: {
+        fontSize: "16px",
+
+      }
   },
+  // {
+  //   name : "BORROW TIME",
+  //   selector: row => row.b_borrow_time,
+  //     sortable: true,
+  //     sortField: "b_borrow_time",
+  //     style: {
+  //       fontSize: "16px",
+
+  //     }
+  // },
   {
     name : "BORROW TIME",
     cell: row => (
@@ -97,6 +109,7 @@ const columns = [
       </span>
     ),
     sortable: true,
+    sortAccessor: row => row.b_borrow_status,
   },
   {
     name: "RETURN TIME",
@@ -113,21 +126,23 @@ const columns = [
   },
   {
     name : "LOCATION",
-    cell: row => (
-      <span style={{ fontSize: "16px" }}>
-        {row.b_location}
-      </span>
-    ),
-    sortable: true,
+    selector: row => row.b_location,
+      sortable: true,
+      sortField: "b_location",
+      style: {
+        fontSize: "16px",
+
+      }
   },
   {
     name : "NOTE",
-    cell: row => (
-      <span style={{ fontSize: "16px" }}>
-        {row.b_note}
-      </span>
-    ),
-    sortable: true,
+    selector: row => row.b_note,
+      sortable: true,
+      sortField: "b_note",
+      style: {
+        fontSize: "16px",
+
+      }
   },
   {
     name : "EDIT / MORE",

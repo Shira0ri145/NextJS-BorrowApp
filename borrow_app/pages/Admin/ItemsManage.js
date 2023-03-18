@@ -69,58 +69,63 @@ export default function ItemManage() {
 
   const columns = [
     {
-      name : "ITEM ID",
-      cell: row => (
-        <span style={{ fontSize: "12px", fontWeight: "bold" }}>
-          {row.item_id}
-        </span>
-      ),
+      name: "ITEM ID",
+      selector: row => row.item_id,
       sortable: true,
+      sortField: "item_id",
+      style: {
+        fontSize: "12px", fontWeight: "bold"
+
+      }
     },
     {
-      name : "ITEM TYPE",
-      cell: row => (
-        <span style={{ fontSize: "16px" }}>
-          {row.item_id_type}
-        </span>
-      ),
+      name: "ITEM TYPE",
+      selector: row => row.item_id_type,
       sortable: true,
+      sortField: "item_id_type",
+      style: {
+        fontSize: "14px"
+
+      }
     },
     {
-      name : "ITEM NAME",
-      cell: row => (
-        <span style={{ fontSize: "16px" }}>
-          {row.item_name}
-        </span>
-      ),
+      name: "ITEM NAME",
+      selector: row => row.item_name,
       sortable: true,
+      sortField: "item_name",
+      style: {
+        fontSize: "14px",
+
+      }
     },
     {
       name: "DEPARTMENT",
-      cell: row => (
-        <span style={{ fontSize: "16px" }}>
-          {row.item_department}
-        </span>
-      ),
+      selector: row => row.item_department,
       sortable: true,
+      sortField: "item_department",
+      style: {
+        fontSize: "16px",
+      
+
+      }
     },
     {
       name : "MAJOR",
-      cell: row => (
-        <span style={{ fontSize: "16px" }}>
-          {row.item_major}
-        </span>
-      ),
+      selector: row => row.item_major,
       sortable: true,
+      sortField: "item_major",
+      style: {
+        fontSize: "16px",
+      }
     },
     {
       name : "BORROW STATUS",
-      cell: row => (
-        <span style={{ fontSize: "16px" }}>
-          {row.item_borrow_status}
-        </span>
-      ),
+      selector: row => row.item_borrow_status,
       sortable: true,
+      sortField: "item_borrow_status",
+      style: {
+        fontSize: "16px",
+      }
     },
     {
       name : "EDIT / MORE",
@@ -140,6 +145,8 @@ export default function ItemManage() {
     },
     
   ]
+  // pagination feture
+  
 
 
   return (
